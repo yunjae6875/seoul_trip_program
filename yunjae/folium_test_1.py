@@ -74,7 +74,7 @@ class MyApp(QWidget):
         #                   icon=folium.Icon(color="red")
         #                   ).add_to(marker_cluster)
 
-        print("왔나?ff")
+        print("왔나?ffdd")
         data = io.BytesIO()
         self.seoul_map.save('index.html', close_file=False)
         self.seoul_map.save(data, close_file=False)
