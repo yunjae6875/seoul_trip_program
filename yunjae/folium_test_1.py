@@ -76,13 +76,14 @@ class MyApp(QWidget):
 
         print("왔나?")
         data = io.BytesIO()
+        self.seoul_map.save('index.html', close_file=False)
+        self.seoul_map.save(data, close_file=False)
         self.web = QWebEngineView()
-        # web.setHtml(data.getvalue().decode())
-        # self.seoul_map.save(data, close_file=False)
+        self.web.setHtml(data.getvalue().decode())
         self.layout.addWidget(self.web)
         # self.seoul_map.save('seoul_tour.html', close_file=False)
         # self.seoul_map.save('seoul_map.html', close_file=False)
-        self.loadPage()
+        # self.loadPage()
 
     def mapping_tour_all_show(self):
         for index, row in self.df_tour.iterrows():
