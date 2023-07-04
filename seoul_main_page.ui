@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -289,6 +289,18 @@ border: 1px solid black;</string>
                   <layout class="QHBoxLayout" name="horizontalLayout_12">
                    <item>
                     <widget class="QLabel" name="wheather_icon">
+                     <property name="minimumSize">
+                      <size>
+                       <width>265</width>
+                       <height>135</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>265</width>
+                       <height>135</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>날씨 아이콘</string>
                      </property>
@@ -975,8 +987,8 @@ border: 1px solid black;</string>
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>552</width>
-                     <height>582</height>
+                     <width>98</width>
+                     <height>28</height>
                     </rect>
                    </property>
                   </widget>
