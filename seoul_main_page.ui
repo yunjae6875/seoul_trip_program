@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -167,7 +167,7 @@ color: rgb(255, 255, 255);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="main_page_title">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -192,7 +192,7 @@ color: rgb(255, 255, 255);</string>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="main_sub_title">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -255,7 +255,7 @@ background-color: rgb(255, 255, 255);
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="let_today_weather">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -344,7 +344,7 @@ border: 1px solid black;</string>
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="pushButton_3">
+                    <widget class="QPushButton" name="food_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -376,7 +376,7 @@ border: 1px solid black;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_2">
+                    <widget class="QPushButton" name="sleep_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -402,7 +402,7 @@ border: 1px solid black;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton">
+                    <widget class="QPushButton" name="tour_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -418,7 +418,7 @@ border: 1px solid black;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_4">
+                 <widget class="QPushButton" name="all_show_btn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -435,7 +435,7 @@ border: 1px solid black;</string>
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>전체보기</string>
+                   <string>전체 지도 보기</string>
                   </property>
                  </widget>
                 </item>
@@ -589,7 +589,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_5">
+                 <widget class="QPushButton" name="back_2_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -650,7 +650,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="main_2_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -848,7 +848,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_6">
+                 <widget class="QPushButton" name="back_3_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -909,7 +909,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="main_3_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1126,7 +1126,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_7">
+                 <widget class="QPushButton" name="back_4_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -1187,7 +1187,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_9">
+              <widget class="QLabel" name="main_4_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1348,7 +1348,7 @@ border-radius: 60px;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_2" native="true">
+                 <widget class="QWidget" name="map_widget" native="true">
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
