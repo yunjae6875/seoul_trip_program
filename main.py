@@ -17,9 +17,27 @@ class WindowClass(QMainWindow, form_class):
         super( ).__init__( )
         self.setupUi(self)
 
+        self.insert_values_in_gridlayout()
 
         # self.widget.setLayout(grid)
 
+    # hover 하면 색 변하게 하기 (수정필요)
+    def insert_values_in_gridlayout(self):
+        # self.button_group = QButtonGroup()  # 버튼 그룹 생성
+        cnt = 0
+        for i in range(1, 6):
+            for j in range(1, 6):
+                button = QPushButton(gu_list[cnt])  # 버튼 생성 및 이름 넣어줌
+                button.setFixedSize(100, 100)  # 버튼의 크기 고정
+                button.setCheckable(True)  # 선택할 수 있게 설정
+                button.setStyleSheet('''
+                border-radius:15px;
+                border: 1px solid black;
+                background-color: rgb(255, 255, 255);
+                ''')
+                # self.button_group.addButton(button)  # 버튼 그룹에 버튼 추가
+                self.gridLayout.addWidget(button, i, j)
+                cnt += 1
 
 
 
