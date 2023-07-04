@@ -78,7 +78,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         temperature = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > div > strong')
         wheather = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > p > span.weather')
-        self.temp_label.setText(f"{temperature.text[-5:]}")
+        self.temp_label.setText(f"{temperature.text[-5:]} {wheather.text}")
         self.set_wheather_icon(wheather.text)
         self.driver.close()
 
