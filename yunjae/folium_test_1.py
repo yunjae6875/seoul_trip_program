@@ -19,34 +19,30 @@ class MyApp(QWidget):
         self.setMinimumSize(self.window_width, self.window_height)
         self.setGeometry(300, 300, 1000, 600)
 
-        # ----- 좌표: 위도 경도
-        latitude = 37.394946  # 위도
-        longitude = 127.111104  # 경도
-        # coordinate = (35.19475778198943, 126.8399771747554)  # 현재 보여줄 좌표 위치
-
         # ----- Pandas / DataFrame
         # df = pd.read_csv('00_db/_csv/seoul_tourist.csv')
         con = sqlite3.connect('00_db/seoul_db.sqlite')
         cur = con.cursor()
-        df = pd.read_sql('SELECT * FROM seoul_tourist', con)
-        lod_df = pd.read_sql('SELECT * FROM seoul_lodges', con)
+        self.df_tour = pd.read_sql('SELECT * FROM seoul_tourist', con)
+        self.df_lodge = pd.read_sql('SELECT * FROM seoul_lodges', con)
 
         # ----- Pandas Option
         pd.set_option("display.max_columns", None)
         pd.set_option("display.max_rows", None)
 
-        # ----- Sub DataFrame
-        sub_df = df.loc[df['map_select'].isin([1])]
-        third_df = lod_df.loc[lod_df['select'].isin([1])]
-
         # ----- Layout & Button
-        layout = QVBoxLayout()
-        button = QPushButton('test', self)
-        layout.addWidget(button)
-        self.setLayout(layout)
+        self.layout = QVBoxLayout()
+        self.button = QPushButton('test', self)
+        self.layout.addWidget(self.button)
+        self.setLayout(self.layout)
 
-        # ----- folium map 설정
-        m = folium.Map(
+        # ----- self.seoul_map 좌표 설정
+        latitude = 37.394946  # 위도
+        longitude = 127.111104  # 경도
+        # coordinate = (35.19475778198943, 126.8399771747554)  # 현재 보여줄 좌표 위치
+
+        # ----- self.seoul_map
+        self.seoul_map = folium.Map(
             tiles='OpenStreetMap',  # 배경지도 tiles에 대한 속성 => 타이틀명 아님
             zoom_start=10,  # 화면 보여줄 거리 => 값이 적을수록 가까이 보여줌
             location=[latitude, longitude],  # 현재 화면에 보여줄 좌표 값
@@ -55,29 +51,54 @@ class MyApp(QWidget):
             # dragging = False
         )
 
-        # ----- folium Marker => 마커 찍기
-        folium.Marker([latitude, longitude],
-                      radius=30,
-                      tooltip="윤재 집",
-                      popup='<iframe width="560" height="315" src="https://www.youtube.com/embed/dpwTOQri42s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
-                      icon=folium.Icon(color="red", icon="info-sign")
-                      ).add_to(m)
+        # # ----- folium Marker => 마커 찍기 테스트
+        # folium.Marker([latitude, longitude],
+        #               radius=30,
+        #               tooltip="윤재 집",
+        #               popup='<iframe width="560" height="315" src="https://www.youtube.com/embed/dpwTOQri42s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+        #               icon=folium.Icon(color="red", icon="info-sign")
+        #               ).add_to(m)
 
-        # ----- folium MarkerCluster
+        # ----- folium MarkerCluster / Sub DataFrame
+        sub_df = self.df_tour.loc[self.df_tour['map_select'].isin([1])]
         matching = sub_df[['x_pos', 'y_pos']]
-        marker_cluster = MarkerCluster().add_to(m)
-        for lat, long in zip(matching['x_pos'], matching['y_pos']):
-            folium.Marker([lat, long],
-                          tooltip="",
-                          icon=folium.Icon(color="red")
-                          ).add_to(marker_cluster)
 
-        # save map data to data object
+
+        self.marker_cluster = MarkerCluster().add_to(self.seoul_map)
+        self.mapping_lodge_all_show()
+
+        # ----- 다른 방법
+        # for lat, long in zip(matching['x_pos'], matching['y_pos']):
+        #     folium.Marker([lat, long],
+        #                   tooltip="",
+        #                   icon=folium.Icon(color="red")
+        #                   ).add_to(marker_cluster)
+
+        print("왔나?")
         data = io.BytesIO()
-        m.save(data, close_file=False)
-        webView = QWebEngineView()
-        webView.setHtml(data.getvalue().decode())
-        layout.addWidget(webView)
+        web = QWebEngineView()
+        web.setHtml(data.getvalue().decode())
+        # self.seoul_map.save(data, close_file=False)
+        self.layout.addWidget(web)
+        self.seoul_map.save('seoul_tour.html', close_file=False)
+        # self.seoul_map.save('seoul_map.html', close_file=False)
+
+    def mapping_tour_all_show(self):
+        for index, row in self.df_tour.iterrows():
+            store_x_pos = row['x_pos']
+            store_y_pos = row['y_pos']
+            store_name = row['상호명']
+            store_info = row['신주소'], row['전화번호']
+            folium.Marker([store_x_pos, store_y_pos], tooltip=store_name, popup=store_info, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
+
+    def mapping_lodge_all_show(self):
+        for index, row in self.df_lodge.iterrows():
+            lodge_x_pos = row['x_pos']
+            lodge_y_pos = row['y_pos']
+            lodge_name = row['사업장명']
+            lodge_info = row['도로명주소'], row['전화번호']
+            folium.Marker([lodge_x_pos, lodge_y_pos], tooltip=lodge_name, popup=lodge_info, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
+
 
 
 if __name__ == '__main__':
