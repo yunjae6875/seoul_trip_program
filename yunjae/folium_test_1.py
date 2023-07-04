@@ -76,12 +76,13 @@ class MyApp(QWidget):
 
         print("왔나?")
         data = io.BytesIO()
-        web = QWebEngineView()
-        web.setHtml(data.getvalue().decode())
+        self.web = QWebEngineView()
+        # web.setHtml(data.getvalue().decode())
         # self.seoul_map.save(data, close_file=False)
-        self.layout.addWidget(web)
-        self.seoul_map.save('seoul_tour.html', close_file=False)
+        self.layout.addWidget(self.web)
+        # self.seoul_map.save('seoul_tour.html', close_file=False)
         # self.seoul_map.save('seoul_map.html', close_file=False)
+        self.loadPage()
 
     def mapping_tour_all_show(self):
         for index, row in self.df_tour.iterrows():
@@ -99,6 +100,10 @@ class MyApp(QWidget):
             lodge_info = row['도로명주소'], row['전화번호']
             folium.Marker([lodge_x_pos, lodge_y_pos], tooltip=lodge_name, popup=lodge_info, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
 
+    def loadPage(self):
+        with open('seoul_map.html', 'r') as f:
+            html = f.read()
+            self.web.setHtml(html)
 
 
 if __name__ == '__main__':
