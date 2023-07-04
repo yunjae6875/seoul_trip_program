@@ -4,6 +4,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from soyeon.test import *
+from PyQt5.QtGui import *
 
 def resource_path(relative_path):
     base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
@@ -44,6 +45,10 @@ class WindowClass(QMainWindow, form_class):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    fontDB = QFontDatabase()
+    fontDB.addApplicationFont('./font/Pretendard-Medium.ttf')
+    app.setFont(QFont('Pretendard Medium'))
+
     myWindow = WindowClass( )
     myWindow.show( )
     app.exec_( )
