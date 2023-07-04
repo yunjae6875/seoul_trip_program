@@ -81,6 +81,7 @@ class MyApp(QWidget):
         self.web = QWebEngineView()
         self.web.setHtml(data.getvalue().decode())
         self.layout.addWidget(self.web)
+
         # self.seoul_map.save('seoul_tour.html', close_file=False)
         # self.seoul_map.save('seoul_map.html', close_file=False)
         # self.loadPage()
