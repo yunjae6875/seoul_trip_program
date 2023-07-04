@@ -286,6 +286,28 @@ background-color: rgb(255, 255, 255);
 border-radius: 15px;
 border: 1px solid black;</string>
                   </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QLabel" name="wheather_icon">
+                     <property name="text">
+                      <string>날씨 아이콘</string>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="temp_label">
+                     <property name="text">
+                      <string>온도</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
