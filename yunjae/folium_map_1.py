@@ -68,7 +68,7 @@ class FoliumMap(QWidget):
     def mapping_tour_all_show(self):
         """DB의 관광지 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
         for index, row in self.df_tour.iterrows():
-            x_pos = row['x_pos']
+            x_pos = row['x_pos'] # 응애
             y_pos = row['y_pos']
             name = row['상호명']
             info = row['신주소'], row['전화번호']
