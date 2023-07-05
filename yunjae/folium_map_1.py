@@ -1,7 +1,7 @@
 """
 작성자: 김윤재
-최초작성: 2023-07-03
-최종수정일: 2023-07-05 17:15
+최초작성: 2023-07-03(월)
+최종수정: 2023-07-05(수) 19:32
 """
 
 # --- import modules
@@ -40,7 +40,7 @@ class FoliumMap(QWidget):
 
         # --- 레이아웃 & 버튼 & 웹엔진뷰
         self.layout = QVBoxLayout()
-        self.button = QPushButton('뒤로가기(아직안됨)', self)
+        self.button = QPushButton('뒤로가기(구글스트릿에서)', self)
         self.web = QWebEngineView()
         self.layout.addWidget(self.button)
         self.setLayout(self.layout)
