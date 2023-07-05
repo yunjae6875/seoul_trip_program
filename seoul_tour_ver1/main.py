@@ -174,7 +174,13 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_3))
         self.admit_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
+        self.all_show_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_5))
         self.activate_DB()
+
+        # 자동완성 기능 추가
+        completer = QCompleter(gu_list)
+        self.map_lineEdit.setCompleter(completer)
+
 
     def back_3_btn_click_event(self):
         if not self.back_3_btn_clicked:
