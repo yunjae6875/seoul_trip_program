@@ -8,7 +8,7 @@ from PyQt5.QtCore import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from seoul_main_page import *
-from widget_test import *
+from widget_for_food import *
 
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
                         '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
@@ -23,7 +23,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         # self.widget.setLayout(grid)
 
-    def food_btn_click_event(self):
+
+    def what_do_you_want_to_know(self):
+        """
+        뭘 알고 싶니
+        :return:
+        """
         self.stackedWidget.setCurrentWidget(self.main_page_2)
 
     # 구 버튼 클릭이벤트
@@ -46,8 +51,9 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             rate = data[3]
             address = data[4]
             main_dishes = data[-3]
+            price = data[-2]
             img_path = data[-1]
-            layout.addWidget(SeoulWidget(name,address,main_dishes,img_path, self))
+            layout.addWidget(SeoulForFood(name, rate, address, main_dishes, price, img_path, self))
 
     # hover 하면 색 변하게 하기 (수정필요)
     def insert_values_in_gridlayout(self):
@@ -68,12 +74,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 self.gridLayout.addWidget(button, i, j)
                 self.gu_btn_list.append(button)
                 cnt += 1
-
+    ######################################
+    #날씨관련
     def wheather_crawling(self):
         options = webdriver.ChromeOptions()
         options.add_argument("headless")
         self.driver = webdriver.Chrome(options=options)
-        # self.driver = webdriver.Chrome()
         self.driver.get("https://weather.naver.com/today/09140104?cpName=KMA")
 
         temperature = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > div > strong')
@@ -97,6 +103,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             idx = 3
 
         self.wheather_icon.setPixmap(QPixmap(wheather_icon_path[idx]))
+    ######################################
 
     # 디비디비
     def activate_DB(self):
@@ -106,13 +113,23 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # 기능 이니트
     def function_init(self):
         self.wheather_crawling() # 날씨 크롤링
-        self.food_btn.clicked.connect(self.food_btn_click_event)
+        self.food_btn.clicked.connect(self.what_do_you_want_to_know)
+        # 라벨 클릭하면 오픈 페이지로 이동
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
         self.gu_btn_clicked()
         self.activate_DB()
 
     def Ui_init(self):
+        #스크롤에어리어 레이아웃 넣기
         v_layout = QVBoxLayout(self)
         self.scrollAreaWidgetContents.setLayout(v_layout)
+        #########
+        self.stackedWidget.setCurrentWidget(self.open_page)
+
+        self.label.setPixmap(QPixmap('../img/background.png'))
+        self.back_2_btn.setIcon(QIcon('../img/back.png'))
+        self.back_3_btn.setIcon(QIcon('../img/back.png'))
+        self.back_4_btn.setIcon(QIcon('../img/back.png'))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
