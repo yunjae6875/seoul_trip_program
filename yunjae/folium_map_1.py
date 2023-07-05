@@ -42,6 +42,7 @@ class FoliumMap(QWidget):
 
         # --- 레이아웃 & 버튼 & 웹엔진뷰
         self.layout = QVBoxLayout()
+        self.test_frame = QFrame(self)
         self.button = QPushButton('뒤로가기(아직안됨)', self)
         self.layout.addWidget(self.button)
         self.setLayout(self.layout)
@@ -132,7 +133,7 @@ class FoliumMap(QWidget):
         webbrowser.open(r'index.html')  # --- 테스트용: 웹브라우저에서도 self.seoul_map 열기
         web = QWebEngineView()
         web.setUrl(QUrl("file:///index.html"))  # QWebEngineView 를 이용하여 웹 페이지를 표출
-        self.layout.addWidget(web)
+        self.test_frame.addWidget(web)
 
     def load_map_2(self):
         with open('index.html', 'r', encoding="utf-8") as f:
