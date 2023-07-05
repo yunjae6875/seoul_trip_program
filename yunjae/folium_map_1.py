@@ -1,3 +1,9 @@
+"""
+작성자: 김윤재
+최초작성: 2023-07-03
+수정일: 2023-07-05 15:41
+"""
+
 # --- import modules
 import io
 import sqlite3
