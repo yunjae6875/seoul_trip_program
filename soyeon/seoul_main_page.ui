@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -167,7 +167,7 @@ color: rgb(255, 255, 255);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="main_page_title">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -192,7 +192,7 @@ color: rgb(255, 255, 255);</string>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="main_sub_title">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -255,7 +255,7 @@ background-color: rgb(255, 255, 255);
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="let_today_weather">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -282,10 +282,46 @@ background-color: rgb(255, 255, 255);
                 <item>
                  <widget class="QWidget" name="widget" native="true">
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(255, 255, 255);
+                   <string notr="true">QWidget#widget{
+background-color: rgb(255, 255, 255);
 border-radius: 15px;
-border: 1px solid black;</string>
+border: 1px solid black;}
+</string>
                   </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QLabel" name="wheather_icon">
+                     <property name="minimumSize">
+                      <size>
+                       <width>265</width>
+                       <height>135</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>265</width>
+                       <height>135</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>날씨 아이콘</string>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="temp_label">
+                     <property name="text">
+                      <string>온도</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -322,7 +358,7 @@ border: 1px solid black;</string>
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="pushButton_3">
+                    <widget class="QPushButton" name="food_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -354,7 +390,7 @@ border: 1px solid black;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_2">
+                    <widget class="QPushButton" name="sleep_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -380,7 +416,7 @@ border: 1px solid black;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton">
+                    <widget class="QPushButton" name="tour_btn">
                      <property name="minimumSize">
                       <size>
                        <width>170</width>
@@ -396,7 +432,7 @@ border: 1px solid black;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_4">
+                 <widget class="QPushButton" name="all_show_btn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -413,7 +449,7 @@ border: 1px solid black;</string>
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>전체보기</string>
+                   <string>전체 지도 보기</string>
                   </property>
                  </widget>
                 </item>
@@ -567,7 +603,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_5">
+                 <widget class="QPushButton" name="back_2_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -628,7 +664,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="main_2_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -826,7 +862,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_6">
+                 <widget class="QPushButton" name="back_3_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -887,7 +923,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="main_3_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1104,7 +1140,7 @@ border: 1px solid black;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_7">
+                 <widget class="QPushButton" name="back_4_btn">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -1165,7 +1201,7 @@ border: 1px solid black;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label_9">
+              <widget class="QLabel" name="main_4_title_lab">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1293,6 +1329,9 @@ border-radius: 60px;</string>
                        <property name="text">
                         <string>TextLabel</string>
                        </property>
+                       <property name="scaledContents">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -1326,7 +1365,7 @@ border-radius: 60px;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_2" native="true">
+                 <widget class="QWidget" name="map_widget" native="true">
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
@@ -1385,6 +1424,329 @@ border-radius: 60px;</string>
              </size>
             </property>
            </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="main_page_5">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_29">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QFrame" name="frame_27">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>220</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_26">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="frame_28">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(193, 218, 255);</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_26">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="back_5_btn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>60</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>img/back.png</normaloff>img/back.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>60</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_28">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_29">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_27">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="map_widget_4" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>754</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(231, 231, 231);</string>
+                  </property>
+                  <widget class="QLabel" name="label_5">
+                   <property name="geometry">
+                    <rect>
+                     <x>250</x>
+                     <y>690</y>
+                     <width>71</width>
+                     <height>21</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>지도 나올곳</string>
+                   </property>
+                  </widget>
+                  <widget class="QFrame" name="frame_30">
+                   <property name="geometry">
+                    <rect>
+                     <x>30</x>
+                     <y>40</y>
+                     <width>533</width>
+                     <height>60</height>
+                    </rect>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>522</width>
+                     <height>57</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:15px;</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_27">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <spacer name="horizontalSpacer_27">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>30</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="minimumSize">
+                       <size>
+                        <width>40</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>40</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="pixmap">
+                       <pixmap>qt_img/magnifier.png</pixmap>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_29">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>30</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="map_lineEdit">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>60</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>20</pointsize>
+                       </font>
+                      </property>
+                      <property name="placeholderText">
+                       <string>각 구별 핫스팟을 보여드려요!</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </item>
