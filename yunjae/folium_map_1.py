@@ -1,7 +1,7 @@
 """
 작성자: 김윤재
 최초작성: 2023-07-03
-수정일: 2023-07-05 15:41
+최종수정일: 2023-07-05 16:25
 """
 
 # --- import modules
@@ -15,7 +15,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from folium.plugins import MarkerCluster
+from folium.plugins import *
 import webbrowser
 
 
@@ -30,13 +30,11 @@ class FoliumMap(QWidget):
         self.setGeometry(300, 300, 1000, 600)
 
         # --- DB + Query
-        self.conn = sqlite3.connect('00_db/seoul_db.db')
-        self.cur = self.conn.cursor()
+        self.con = sqlite3.connect('00_db/seoul_db.db')
+        self.cur = self.con.cursor()
 
         # --- 판다스 리드
-        self.df_tour = pd.read_sql('SELECT * FROM seoul_tourist', self.conn)  # --- 관광명소
-        self.df_lodge = pd.read_sql('SELECT * FROM seoul_lodges', self.conn)  # --- 숙박업소
-        self.df_food = pd.read_sql('SELECT * FROM food_list', self.conn)  # --- 음식점
+        self.df_food = pd.read_sql('SELECT * FROM food_list', self.con)  # --- 음식점
 
         # --- 판다스 옵션
         pd.set_option("display.max_columns", None)
@@ -58,8 +56,8 @@ class FoliumMap(QWidget):
 
         # --- folium 맵 설정: 서울 전체 맵
         self.seoul_map = folium.Map(
-            # tiles=self.titles,  # --- 배경지도 tiles에 대한 속성 (기본값: https://www.openstreetmap.org)
-            # attr=self.attr,
+            tiles=self.titles,  # --- 배경지도 tiles에 대한 속성 (기본값: https://www.openstreetmap.org)
+            attr=self.attr,
             zoom_start=10,  # --- 화면 보여줄 거리 / 값이 적을수록 가까이 보여줌
             location=[self.latitude, self.longitude],  # --- 현재 화면에 보여줄 좌표 값
             control_scale=True,  # --- contol_scale: True 시 맵 좌측 하단에 배율을 보여줌
@@ -67,16 +65,18 @@ class FoliumMap(QWidget):
             # scrollWheelZoom = False,  # --- scrollWheelZoom: False 시 스크롤을 사용할 수 없음
             # dragging = False  # --- dragging: False 시 마우스 드래그를 사용할 수 없음
         )
-        self.marker_cluster = MarkerCluster().add_to(self.seoul_map)  # --- 미리 만들어 둔 맵(self.seoul_map)을 변수에 저장합니다.
+        self.marker_cluster = MarkerCluster().add_to(self.seoul_map)  # --- MakerCluster() 플러그인 적용
+        self.mini_map = MiniMap().add_to(self.seoul_map)  # --- MiniMap() 플러그인 적용
 
         # --- 실행부
-        self.mapping_food_all_show()
+        self.mapping_tour_all_show()
         self.load_map()  # --- 현재 폴더에 index.html 파일을 저장하고, 실제 위젯에 맵 불러오기
 
     # --- 메소드
     def mapping_tour_all_show(self):
-        """DB의 관광지 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
-        for index, row in self.df_tour.iterrows():
+        """DB의 관광명소 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
+        tour_query = pd.read_sql("SELECT 상호명, 신주소, 전화번호, 웹사이트, x_pos, y_pos FROM seoul_tourist", self.con)
+        for index, row in tour_query.iterrows():
             x_pos = row['x_pos']
             y_pos = row['y_pos']
             name = row['상호명']
@@ -89,7 +89,8 @@ class FoliumMap(QWidget):
 
     def mapping_lodges_all_show(self, ):
         """DB의 숙박지 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
-        for index, row in self.df_lodge.iterrows():
+        lodge_query = pd.read_sql("SELECT 사업장명, 도로명주소, 전화번호, x_pos, y_pos FROM seoul_lodges", self.con)
+        for index, row in lodge_query.iterrows():
             x_pos = row['x_pos']
             y_pos = row['y_pos']
             name = row['사업장명']
@@ -99,6 +100,7 @@ class FoliumMap(QWidget):
 
     def mapping_food_all_show(self, ):
         """DB의 음식점 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
+        food_query = pd.read_sql("SELECT name, address, x_pos, y_pos, img_path FROM food_list", self.con)
         for index, row in self.df_food.iterrows():
             x_pos = row['x_pos']
             y_pos = row['y_pos']
@@ -106,14 +108,11 @@ class FoliumMap(QWidget):
             info = row['address']
             img = row['img_path']
             popup = folium.Popup(f"<img src='{img}'>" + "<br><br>" + name + "<br><br>" + str(info), min_width=400, max_width=400)
-            # folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="green")).add_to(self.marker_cluster)
-            folium.Marker([x_pos, y_pos], tooltip=name, popup=popup).add_to(self.marker_cluster)
-            # if index == 1000:
-            #     break
+            folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
 
     def mapping_food_guname_show(self, guname: str):
         """DB의 음식점 목록을 '구'별로 마커 + 클러스트로 적용시킵니다"""
-        read_guname = pd.read_sql(f"SELECT gu_name, name, rate, address, x_pos, y_pos FROM food_list WHERE gu_name = '{guname}'", self.conn)
+        read_guname = pd.read_sql(f"SELECT gu_name, name, rate, address, x_pos, y_pos FROM food_list WHERE gu_name = '{guname}'", self.con)
         for index, row in read_guname.iterrows():
             x_pos = row['x_pos']
             y_pos = row['y_pos']
@@ -122,22 +121,23 @@ class FoliumMap(QWidget):
             # img = row['img_path']
             # popup = folium.Popup(f"<img src='{img}'>" + "<br><br>" + name + "<br><br>" + str(info), min_width=400, max_width=400)
             popup = folium.Popup(name + "<br><br>" + str(info), min_width=400, max_width=400)
-            # folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="green")).add_to(self.marker_cluster)
-            folium.Marker([x_pos, y_pos], tooltip=name, popup=popup).add_to(self.marker_cluster)
-            if index == 1000:
-                break
-
-
+            folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
 
     def load_map(self):
         """self.seoul_map을 index.html 파일로 저장하고, PyQt 레이아웃에 QWebEngineView를 추가합니다"""
-        data = io.BytesIO()
+        # data = io.BytesIO()
+        # self.seoul_map.save(data, close_file=False)
+        # web.setHtml(data.getvalue().decode())
         self.seoul_map.save('index.html', close_file=False)
-        self.seoul_map.save(data, close_file=False)
-        webbrowser.open(r'index.html')
+        webbrowser.open(r'index.html')  # --- 테스트용: 웹브라우저에서도 self.seoul_map 열기
         web = QWebEngineView()
-        web.setHtml(data.getvalue().decode())
+        web.setUrl(QUrl("file:///index.html"))  # QWebEngineView 를 이용하여 웹 페이지를 표출
         self.layout.addWidget(web)
+
+    def load_map_2(self):
+        with open('index.html', 'r', encoding="utf-8") as f:
+            html = f.read()
+            self.webEngineView.setUrl(QUrl(html))
 
     def button_clicked_event(self):
         """뒤로가기 버튼"""
