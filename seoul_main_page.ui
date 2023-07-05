@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -987,8 +987,8 @@ border: 1px solid black;</string>
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>98</width>
-                     <height>28</height>
+                     <width>552</width>
+                     <height>582</height>
                     </rect>
                    </property>
                   </widget>
@@ -1326,6 +1326,9 @@ border-radius: 60px;</string>
                        </property>
                        <property name="text">
                         <string>TextLabel</string>
+                       </property>
+                       <property name="scaledContents">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
