@@ -116,7 +116,7 @@ class FoliumMap(QWidget):
 
     def button_clicked_event(self):
         """뒤로가기 버튼"""
-        print("def button_clicked_event")
+        print("def button_clicked_event test")
         pass
 
 if __name__ == '__main__':
