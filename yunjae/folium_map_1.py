@@ -89,7 +89,7 @@ class FoliumMap(QWidget):
             folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
 
     def load_map(self):
-        """seoul_map에 index.html 파일을 저장하고, PyQt 레이아웃에 QWebEngineView를 추가합니다"""
+        """self.seoul_map을 index.html 파일로 저장하고, PyQt 레이아웃에 QWebEngineView를 추가합니다"""
         data = io.BytesIO()
         self.seoul_map.save('index.html', close_file=False)
         self.seoul_map.save(data, close_file=False)
