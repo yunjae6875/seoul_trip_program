@@ -21,13 +21,13 @@ class FoliumMap(QWidget):
         self.setGeometry(300, 300, 1000, 600)
 
         # --- DB + Query
-        self.conn = sqlite3.connect('00_db/seoul_db.sqlite')
+        self.conn = sqlite3.connect('00_db/seoul_db.db')
         self.cur = self.conn.cursor()
         # self.cur.execute("CREATE TABLE seoul_tour ("
 
         # --- 판다스 리드
         self.df_tour = pd.read_sql('SELECT * FROM seoul_tourist', self.conn)
-        self.df_sleep = pd.read_sql('SELECT * FROM seoul_sleep', self.conn)
+        self.df_lodge = pd.read_sql('SELECT * FROM seoul_lodges', self.conn)
 
         # --- 판다스 옵션
         pd.set_option("display.max_columns", None)
@@ -49,8 +49,8 @@ class FoliumMap(QWidget):
 
         # --- folium 맵 설정: 서울 전체 맵
         self.seoul_map = folium.Map(
-            tiles=self.titles,  # --- 배경지도 tiles에 대한 속성 (기본값: https://www.openstreetmap.org)
-            attr=self.attr,
+            # tiles=self.titles,  # --- 배경지도 tiles에 대한 속성 (기본값: https://www.openstreetmap.org)
+            # attr=self.attr,
             zoom_start=10,  # --- 화면 보여줄 거리 / 값이 적을수록 가까이 보여줌
             location=[self.latitude, self.longitude],  # --- 현재 화면에 보여줄 좌표 값
             control_scale=True,  # --- contol_scale: True 시 맵 좌측 하단에 배율을 보여줌
@@ -80,7 +80,7 @@ class FoliumMap(QWidget):
 
     def mapping_sleep_all_show(self):
         """DB의 숙박지 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
-        for index, row in self.df_sleep.iterrows():
+        for index, row in self.df_lodge.iterrows():
             x_pos = row['x_pos']
             y_pos = row['y_pos']
             name = row['사업장명']
