@@ -1,7 +1,7 @@
 """
 작성자: 김윤재
 최초작성: 2023-07-03
-최종수정일: 2023-07-05 16:25
+최종수정일: 2023-07-05 17:15
 """
 
 # --- import modules
@@ -11,7 +11,7 @@ import sys
 
 import folium
 import pandas as pd
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -24,13 +24,11 @@ class FoliumMap(QWidget):
         super().__init__()
 
         # --- 윈도우창
-        self.setWindowTitle('Seoul Folium Test')
-        self.window_width, self.window_height = 700, 700
-        self.setMinimumSize(self.window_width, self.window_height)
-        self.setGeometry(300, 300, 1000, 600)
+        self.setWindowTitle('소연과 소년들')
+        self.setGeometry(300, 300, 900, 700)
 
         # --- DB + Query
-        self.con = sqlite3.connect('00_db/seoul_db.db')
+        self.con = sqlite3.connect('seoul_db.db')
         self.cur = self.con.cursor()
 
         # --- 판다스 리드
@@ -43,9 +41,10 @@ class FoliumMap(QWidget):
         # --- 레이아웃 & 버튼 & 웹엔진뷰
         self.layout = QVBoxLayout()
         self.button = QPushButton('뒤로가기(아직안됨)', self)
+        self.web = QWebEngineView()
         self.layout.addWidget(self.button)
         self.setLayout(self.layout)
-        # self.button.clicked.connect(self.button_clicked_event)
+        self.button.clicked.connect(self.button_clicked_event)
 
         # --- self.seoul_map 지도 설정
         self.latitude = 37.394946  # 위도
@@ -69,8 +68,15 @@ class FoliumMap(QWidget):
         self.mini_map = MiniMap().add_to(self.seoul_map)  # --- MiniMap() 플러그인 적용
 
         # --- 실행부
+        """
+        ▼ 메소드 설명:
+        self.mapping_tour_all_show()  -> 모든 관광명소를 지도에 마커+클러스트로 표시합니다.
+        self.mapping_lodges_all_show()  -> 모든 숙박업소를 지도에 마커+클러스트로 표시합니다.
+        self.mapping_food_all_show()  -> 모든 음식점을 지도에 마커+클러스트로 표시합니다.
+        self.mapping_food_guname_show(guname: str)  -> food_list DB의 'gu_name' 컬럼의 레코드를 입력하면 특정 구만 검색하여 표시합니다.  
+        """
         self.mapping_tour_all_show()
-        self.load_map()  # --- 현재 폴더에 index.html 파일을 저장하고, 실제 위젯에 맵 불러오기
+        self.load_map()  # --- 현재 폴더에 index.html 파일을 저장하고, index.html 파일 불러오기
 
     # --- 메소드
     def mapping_tour_all_show(self):
@@ -82,12 +88,12 @@ class FoliumMap(QWidget):
             name = row['상호명']
             info = row['신주소'], row['전화번호']
             link = f"<a href={row['웹사이트']}>웹사이트 접속</a>"
-            roadview = '<a href="https://www.google.com/maps?layer=c&cbll=' + str(x_pos) + ',' + str(y_pos) + '" target="_blank">GOOGLE STREET VIEW</a>'
+            roadview = '<a href="https://www.google.com/maps?layer=c&cbll=' + str(x_pos) + ',' + str(y_pos) + ' target="_blank">GOOGLE STREET VIEW</a>'
             # popup = folium.Popup(name + f"({str(link)})" + "<br><br>" + str(info), min_width=500, max_width=500)
             popup = folium.Popup(name + f"({str(link)})" + "<br><br>" + str(info) + "<br><br>" + roadview, min_width=500, max_width=500)
             folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
 
-    def mapping_lodges_all_show(self, ):
+    def mapping_lodges_all_show(self):
         """DB의 숙박지 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
         lodge_query = pd.read_sql("SELECT 사업장명, 도로명주소, 전화번호, x_pos, y_pos FROM seoul_lodges", self.con)
         for index, row in lodge_query.iterrows():
@@ -98,7 +104,7 @@ class FoliumMap(QWidget):
             popup = folium.Popup(name + "<br>" + str(info), min_width=400, max_width=400)
             folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
 
-    def mapping_food_all_show(self, ):
+    def mapping_food_all_show(self):
         """DB의 음식점 목록을 맵에 마커 + 클러스트로 적용시킵니다"""
         food_query = pd.read_sql("SELECT name, address, x_pos, y_pos, img_path FROM food_list", self.con)
         for index, row in self.df_food.iterrows():
@@ -130,9 +136,8 @@ class FoliumMap(QWidget):
         # web.setHtml(data.getvalue().decode())
         self.seoul_map.save('index.html', close_file=False)
         webbrowser.open(r'index.html')  # --- 테스트용: 웹브라우저에서도 self.seoul_map 열기
-        web = QWebEngineView()
-        web.setUrl(QUrl("file:///index.html"))  # QWebEngineView 를 이용하여 웹 페이지를 표출
-        self.layout.addWidget(web)
+        self.web.setUrl(QUrl("file:///index.html"))  # QWebEngineView 를 이용하여 웹 페이지를 표출
+        self.layout.addWidget(self.web)
 
     def load_map_2(self):
         with open('index.html', 'r', encoding="utf-8") as f:
@@ -141,7 +146,7 @@ class FoliumMap(QWidget):
 
     def button_clicked_event(self):
         """뒤로가기 버튼"""
-        print("def button_clicked_event test")
+        self.web.page().triggerAction(QWebEnginePage.WebAction.Back)
         pass
 
 if __name__ == '__main__':
