@@ -164,10 +164,11 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
         # 라벨 클릭하면 오픈 페이지로 이동
-        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
         self.back_2_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
+        self.admit_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.activate_DB()
 
     def back_3_btn_click_event(self):
