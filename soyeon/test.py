@@ -1,11 +1,35 @@
-import os
-import sys
-
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
+# import os
+# import sys
+#
+# from PyQt5.QtWidgets import *
+# from PyQt5 import uic
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
                         '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
                         '관악구', '서초구', '강남구', '송파구', '강동구']
+
+from PyQt5.QtWidgets import *
+import sys
+
+class Window(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        layout = QGridLayout()
+        self.setLayout(layout)
+
+        # auto complete options
+        completer = QCompleter(gu_list)
+
+        # create line edit and add auto complete
+        self.lineedit = QLineEdit()
+        self.lineedit.setCompleter(completer)
+        layout.addWidget(self.lineedit, 0, 0)
+
+app = QApplication(sys.argv)
+screen = Window()
+screen.show()
+sys.exit(app.exec_())
+# strings = connect()  # if fetchone()
+
 
 # def insert_values_in_gridlayout(grid):
 #         # self.button_group = QButtonGroup()  # 버튼 그룹 생성

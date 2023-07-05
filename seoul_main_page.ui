@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -1656,17 +1656,17 @@ border-radius: 60px;</string>
                     <height>16777215</height>
                    </size>
                   </property>
-                  <widget class="QLabel" name="label_8">
+                  <widget class="QLabel" name="label_5">
                    <property name="geometry">
                     <rect>
-                     <x>180</x>
-                     <y>190</y>
-                     <width>141</width>
-                     <height>31</height>
+                     <x>220</x>
+                     <y>230</y>
+                     <width>71</width>
+                     <height>21</height>
                     </rect>
                    </property>
                    <property name="text">
-                    <string>여기에 지도 나옴</string>
+                    <string>지도 나올곳</string>
                    </property>
                   </widget>
                  </widget>
