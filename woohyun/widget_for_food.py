@@ -15,18 +15,18 @@ class SeoulForFood(QWidget, Ui_Form):
         self.price = price
         self.img_path = img_path
 
-        self.parent_seoul = parent
+        self.seoul_main = parent
         self.name_lab.setText(f"이 름 : {self.name}   평 점 : {self.rate}")
         self.type_lab.setText(f"메인 메뉴 : {self.main_dishes}   가 격 대 : {self.price}")
         self.location_lab.setText(f"주 소 : {self.address}")
         self.img_label.setPixmap(QPixmap(f"{self.img_path}"))
 
     def mousePressEvent(self, event):
-        self.parent_seoul.stackedWidget.setCurrentWidget(self.parent_seoul.main_page_4)
-        self.parent_seoul.name_lab.setText(f"이 름 : {self.name}     평 점 : {self.rate}")
-        self.parent_seoul.type_lab.setText(f"메인 메뉴 : {self.main_dishes}     가 격 대 : {self.price}")
-        self.parent_seoul.location_lab.setText(f"주 소 : {self.address}")
-        self.parent_seoul.img_label.setPixmap(QPixmap(f"{self.img_path}"))
+        self.seoul_main.stackedWidget.setCurrentWidget(self.seoul_main.main_page_4)
+        self.seoul_main.name_lab.setText(f"이 름 : {self.name}     평 점 : {self.rate}")
+        self.seoul_main.type_lab.setText(f"메인 메뉴 : {self.main_dishes}     가 격 대 : {self.price}")
+        self.seoul_main.location_lab.setText(f"주 소 : {self.address}")
+        self.seoul_main.img_label.setPixmap(QPixmap(f"{self.img_path}"))
 
 
 
