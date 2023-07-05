@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from folium.plugins import MarkerCluster
+import webbrowser
 
 
 class FoliumMap(QWidget):
@@ -30,7 +31,6 @@ class FoliumMap(QWidget):
         self.df_tour = pd.read_sql('SELECT * FROM seoul_tourist', self.conn)  # --- 관광명소
         self.df_lodge = pd.read_sql('SELECT * FROM seoul_lodges', self.conn)  # --- 숙박업소
         self.df_food = pd.read_sql('SELECT * FROM food_list', self.conn)  # --- 음식점
-        self.df_food_jongro = pd.read_sql('SELECT * FROM food_list WHERE gu_name = "종로구"', self.conn)
 
         # --- 판다스 옵션
         pd.set_option("display.max_columns", None)
@@ -64,7 +64,7 @@ class FoliumMap(QWidget):
         self.marker_cluster = MarkerCluster().add_to(self.seoul_map)  # --- 미리 만들어 둔 맵(self.seoul_map)을 변수에 저장합니다.
 
         # --- 실행부
-        self.mapping_food_all_show()  # --- 마커+클러스터 맵에 표시
+        self.mapping_food_all_show()
         self.load_map()  # --- 현재 폴더에 index.html 파일을 저장하고, 실제 위젯에 맵 불러오기
 
     # --- 메소드
@@ -102,17 +102,36 @@ class FoliumMap(QWidget):
             popup = folium.Popup(f"<img src='{img}'>" + "<br><br>" + name + "<br><br>" + str(info), min_width=400, max_width=400)
             # folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="green")).add_to(self.marker_cluster)
             folium.Marker([x_pos, y_pos], tooltip=name, popup=popup).add_to(self.marker_cluster)
+            # if index == 1000:
+            #     break
+
+    def mapping_food_guname_show(self, guname: str):
+        """DB의 음식점 목록을 '구'별로 마커 + 클러스트로 적용시킵니다"""
+        read_guname = pd.read_sql(f"SELECT gu_name, name, rate, address, x_pos, y_pos FROM food_list WHERE gu_name = '{guname}'", self.conn)
+        for index, row in read_guname.iterrows():
+            x_pos = row['x_pos']
+            y_pos = row['y_pos']
+            name = row['name']
+            info = row['address']
+            # img = row['img_path']
+            # popup = folium.Popup(f"<img src='{img}'>" + "<br><br>" + name + "<br><br>" + str(info), min_width=400, max_width=400)
+            popup = folium.Popup(name + "<br><br>" + str(info), min_width=400, max_width=400)
+            # folium.Marker([x_pos, y_pos], tooltip=name, popup=popup, icon=folium.Icon(color="green")).add_to(self.marker_cluster)
+            folium.Marker([x_pos, y_pos], tooltip=name, popup=popup).add_to(self.marker_cluster)
             if index == 1000:
                 break
+
+
 
     def load_map(self):
         """self.seoul_map을 index.html 파일로 저장하고, PyQt 레이아웃에 QWebEngineView를 추가합니다"""
         data = io.BytesIO()
         self.seoul_map.save('index.html', close_file=False)
         self.seoul_map.save(data, close_file=False)
-        self.web = QWebEngineView()
-        self.web.setHtml(data.getvalue().decode())
-        self.layout.addWidget(self.web)
+        webbrowser.open(r'index.html')
+        web = QWebEngineView()
+        web.setHtml(data.getvalue().decode())
+        self.layout.addWidget(web)
 
     def button_clicked_event(self):
         """뒤로가기 버튼"""
