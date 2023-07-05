@@ -24,7 +24,7 @@ class MyApp(QWidget):
         con = sqlite3.connect('00_db/seoul_db.sqlite')
         cur = con.cursor()
         self.df_tour = pd.read_sql('SELECT * FROM seoul_tourist', con)
-        self.df_lodge = pd.read_sql('SELECT * FROM seoul_lodges', con)
+        self.df_sleep = pd.read_sql('SELECT * FROM seoul_sleep', con)
 
         # ----- Pandas Option
         pd.set_option("display.max_columns", None)
@@ -65,7 +65,7 @@ class MyApp(QWidget):
 
 
         self.marker_cluster = MarkerCluster().add_to(self.seoul_map)
-        self.mapping_lodge_all_show()
+        self.mapping_tour_all_show()
 
         # ----- 다른 방법
         # for lat, long in zip(matching['x_pos'], matching['y_pos']):
@@ -88,19 +88,19 @@ class MyApp(QWidget):
 
     def mapping_tour_all_show(self):
         for index, row in self.df_tour.iterrows():
-            store_x_pos = row['x_pos']
-            store_y_pos = row['y_pos']
-            store_name = row['상호명']
-            store_info = row['신주소'], row['전화번호']
-            folium.Marker([store_x_pos, store_y_pos], tooltip=store_name, popup=store_info, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
+            tour_x_pos = row['x_pos']
+            tour_y_pos = row['y_pos']
+            tour_name = row['상호명']
+            tour_info = row['신주소'], row['전화번호']
+            folium.Marker([tour_x_pos, tour_y_pos], tooltip=tour_name, popup=tour_info, icon=folium.Icon(color="red")).add_to(self.marker_cluster)
 
-    def mapping_lodge_all_show(self):
-        for index, row in self.df_lodge.iterrows():
-            lodge_x_pos = row['x_pos']
-            lodge_y_pos = row['y_pos']
-            lodge_name = row['사업장명']
-            lodge_info = row['도로명주소'], row['전화번호']
-            folium.Marker([lodge_x_pos, lodge_y_pos], tooltip=lodge_name, popup=lodge_info, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
+    def mapping_sleep_all_show(self):
+        for index, row in self.df_sleep.iterrows():
+            sleep_x_pos = row['x_pos']
+            sleep_y_pos = row['y_pos']
+            sleep_name = row['사업장명']
+            sleep_info = row['도로명주소'], row['전화번호']
+            folium.Marker([sleep_x_pos, sleep_y_pos], tooltip=sleep_name, popup=sleep_info, icon=folium.Icon(color="blue")).add_to(self.marker_cluster)
 
     def loadPage(self):
         with open('seoul_map.html', 'r') as f:
