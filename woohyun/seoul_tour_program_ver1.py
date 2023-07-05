@@ -48,23 +48,32 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # 구 버튼 클릭하면 무슨일이 일어날까
     def gu_btn_for_food(self, btn):
         region = btn.text()
+        self.main_3_title_lab.setText(f"{region}의 유명한 음식점을 안내해드려요!")
+        self.main_4_title_lab.setText(f"{region}의 유명한 음식점을 안내해드려요!")
         datas = self.cur.execute(f'select * from food_list where gu_name = "{region}";')
         self.stackedWidget.setCurrentWidget(self.main_page_3)
         self.clear_scroll_area()
         self.set_data_of_food_in_scrollarea(datas)
+        self.scrollArea.ensureVisible(0, 0)
 
     def gu_btn_for_sleep(self, btn):
         region = btn.text()
-        datas = self.cur.execute(f'select 사업장명, 영업상태명, 도로명주소 from seoul_lodges where 지번주소 like "%{region}%";')
+        self.main_3_title_lab.setText(f"{region}의 최고의 숙박시설을 안내해드려요!")
+        self.main_4_title_lab.setText(f"{region}의 최고의 숙박시설을 안내해드려요!")
+        datas = self.cur.execute(f'select 사업장명, 영업상태명, 도로명주소, img_path from seoul_lodges where 지번주소 like "%{region}%";')
         self.stackedWidget.setCurrentWidget(self.main_page_3)
         self.clear_scroll_area()
         self.set_data_of_sleep_in_scrollarea(datas)
+        self.scrollArea.ensureVisible(0,0)
 
     def tour_btn_click(self):
         self.back_3_btn_clicked = True
+        self.main_3_title_lab.setText(f"서울시의 유명한 명소를 소개해드려요!")
+        self.main_4_title_lab.setText(f"서울시의 유명한 명소를 소개해드려요!")
         self.stackedWidget.setCurrentWidget(self.main_page_3)
         self.clear_scroll_area()
         self.set_data_of_tour_in_scrollarea()
+        self.scrollArea.ensureVisible(0, 0)
     # 스크롤 위젯에 데이터 심기
     def set_data_of_food_in_scrollarea(self, datas):
         layout = self.scrollAreaWidgetContents.layout()
@@ -83,18 +92,20 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             name = data[0]
             status = data[1]
             address = data[2]
-            layout.addWidget(SeoulForSleep(name, status, address, self))
+            image_path = data[-1]
+            layout.addWidget(SeoulForSleep(name, status, address, image_path,self))
 
     def set_data_of_tour_in_scrollarea(self):
         layout = self.scrollAreaWidgetContents.layout()
-        datas = self.cur.execute('select 상호명, 신주소, 운영요일, 운영시간, 휴무일 from seoul_tourist;')
+        datas = self.cur.execute('select 상호명, 신주소, 운영요일, 운영시간, 휴무일, img_path from seoul_tourist;')
         for data in datas:
             name = data[0]
             address = data[1]
             working_day = data[2]
             working_time = data[3]
             holiday = data[4]
-            layout.addWidget(SeoulForTour(name, address, working_day, working_time, holiday, self))
+            image_path = data[-1]
+            layout.addWidget(SeoulForTour(name, address, working_day, working_time, holiday, image_path,self))
     # 스크롤 에어리어 위젯비우기
     def clear_scroll_area(self):
         while self.scrollAreaWidgetContents.layout().count():
@@ -160,7 +171,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     # 기능 이니트
     def function_init(self):
-        # self.wheather_crawling() # 날씨 크롤링
+        self.wheather_crawling() # 날씨 크롤링
         self.food_btn.clicked.connect(lambda :self.what_do_you_want_to_know('food'))
         self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
