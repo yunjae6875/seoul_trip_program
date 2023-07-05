@@ -2,7 +2,7 @@ import sqlite3
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from seoul_tour_ver1.seoul_main_page import *
+from seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
@@ -111,7 +111,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             for j in range(1, 6):
                 button = QPushButton(gu_list[cnt])  # 버튼 생성 및 이름 넣어줌
                 button.setFixedSize(100, 100)  # 버튼의 크기 고정
-                # button.setCheckable(True)  # 선택할 수 있게 설정
                 button.setStyleSheet('''
                 border-radius:15px;
                 border: 1px solid black;
@@ -195,7 +194,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     fontDB = QFontDatabase()
-    fontDB.addApplicationFont('../font/Pretendard-Medium.ttf')
+    fontDB.addApplicationFont('./font/Pretendard-Medium.ttf')
     app.setFont(QFont('Pretendard Medium'))
 
     myWindow = WindowClass( )
