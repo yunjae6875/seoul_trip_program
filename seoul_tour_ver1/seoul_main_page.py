@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
         self.back_2_btn.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.back_2_btn.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("img/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../img/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.back_2_btn.setIcon(icon)
         self.back_2_btn.setIconSize(QtCore.QSize(60, 60))
         self.back_2_btn.setObjectName("back_2_btn")
@@ -391,10 +391,41 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
         self.scrollArea = QtWidgets.QScrollArea(self.frame_9)
+        self.scrollArea.setStyleSheet("QScrollBar:vertical{\n"
+"border:none;\n"
+"background: white;\n"
+"width:14px;\n"
+"margin: 15px 0 15px 0;\n"
+"border-radius: 0px;\n"
+"}\n"
+"QScrollBar::handle:vertical {    \n"
+"    background-color:  rgb(255, 204, 0);\n"
+"    min-height: 30px;\n"
+"    border-radius: 7px;\n"
+"}\n"
+"QScrollBar::handle:vertical:hover{    \n"
+"    \n"
+"    background-color: rgb(251, 197, 0);\n"
+"}\n"
+"QScrollBar::handle:vertical:pressed {    \n"
+"    background-color: rgb(255, 204, 0);\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"    border: none;\n"
+"    background-color: rgba(255, 204, 0, 0);\n"
+"    height: 15px;\n"
+"    border-radius:5px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"}\n"
+"\n"
+"")
+        self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 552, 582))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 552, 584))
         self.scrollAreaWidgetContents.setMaximumSize(QtCore.QSize(552, 16777215))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
@@ -441,7 +472,9 @@ class Ui_MainWindow(object):
         self.back_4_btn.setMinimumSize(QtCore.QSize(60, 60))
         self.back_4_btn.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.back_4_btn.setText("")
-        self.back_4_btn.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("img/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.back_4_btn.setIcon(icon1)
         self.back_4_btn.setIconSize(QtCore.QSize(60, 60))
         self.back_4_btn.setObjectName("back_4_btn")
         self.horizontalLayout_9.addWidget(self.back_4_btn)
@@ -553,7 +586,7 @@ class Ui_MainWindow(object):
         self.back_5_btn.setMinimumSize(QtCore.QSize(60, 60))
         self.back_5_btn.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         self.back_5_btn.setText("")
-        self.back_5_btn.setIcon(icon)
+        self.back_5_btn.setIcon(icon1)
         self.back_5_btn.setIconSize(QtCore.QSize(60, 60))
         self.back_5_btn.setObjectName("back_5_btn")
         self.horizontalLayout_26.addWidget(self.back_5_btn)
@@ -617,7 +650,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

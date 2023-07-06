@@ -1249,6 +1249,41 @@ border: 1px solid black;}
                 </property>
                 <item>
                  <widget class="QScrollArea" name="scrollArea">
+                  <property name="styleSheet">
+                   <string notr="true">QScrollBar:vertical{
+border:none;
+background: white;
+width:14px;
+margin: 15px 0 15px 0;
+border-radius: 0px;
+}
+QScrollBar::handle:vertical {	
+	background-color:  rgb(255, 204, 0);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	
+	background-color: rgb(251, 197, 0);
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: rgb(255, 204, 0);
+}
+
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgba(255, 204, 0, 0);
+	height: 15px;
+	border-radius:5px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
                   <property name="widgetResizable">
                    <bool>true</bool>
                   </property>
@@ -1258,7 +1293,7 @@ border: 1px solid black;}
                      <x>0</x>
                      <y>0</y>
                      <width>552</width>
-                     <height>582</height>
+                     <height>584</height>
                     </rect>
                    </property>
                    <property name="maximumSize">
