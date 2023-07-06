@@ -1,12 +1,13 @@
 import sqlite3
-
+import folium
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from seoul_tour_ver1.seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
-
+from matplotlib_test import *
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
                         '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
                         '관악구', '서초구', '강남구', '송파구', '강동구']
@@ -55,12 +56,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.clear_scroll_area()
         self.set_data_of_food_in_scrollarea(datas)
         self.scrollArea.ensureVisible(0, 0)
+        #
+        # MyApp(self).show()
 
     def gu_btn_for_sleep(self, btn):
         region = btn.text()
         self.main_3_title_lab.setText(f"{region}의 최고의 숙박시설을 안내해드려요!")
         self.main_4_title_lab.setText(f"{region}의 최고의 숙박시설을 안내해드려요!")
-        datas = self.cur.execute(f'select 사업장명, 영업상태명, 도로명주소, img_path from seoul_lodges where 지번주소 like "%{region}%";')
+        datas = self.cur.execute(f'select 사업장명, 영업상태명, 도로명주소, x_pos, y_pos, img_path from seoul_lodges where 지번주소 like "%{region}%";')
         self.stackedWidget.setCurrentWidget(self.main_page_3)
         self.clear_scroll_area()
         self.set_data_of_sleep_in_scrollarea(datas)
@@ -81,10 +84,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             name = data[2]
             rate = data[3]
             address = data[4]
+            x_pos = data[5]
+            y_pos = data[6]
             main_dishes = data[-3]
             price = data[-2]
             img_path = data[-1]
-            layout.addWidget(SeoulForFood(name, rate, address, main_dishes, price, img_path, self))
+            layout.addWidget(SeoulForFood(name, rate, address, main_dishes, price, x_pos, y_pos, img_path, self))
 
     def set_data_of_sleep_in_scrollarea(self, datas):
         layout = self.scrollAreaWidgetContents.layout()
@@ -92,20 +97,24 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             name = data[0]
             status = data[1]
             address = data[2]
+            x_pos = data[3]
+            y_pos = data[4]
             image_path = data[-1]
-            layout.addWidget(SeoulForSleep(name, status, address, image_path,self))
+            layout.addWidget(SeoulForSleep(name, status, address, x_pos, y_pos, image_path,self))
 
     def set_data_of_tour_in_scrollarea(self):
         layout = self.scrollAreaWidgetContents.layout()
-        datas = self.cur.execute('select 상호명, 신주소, 운영요일, 운영시간, 휴무일, img_path from seoul_tourist;')
+        datas = self.cur.execute('select 상호명, 신주소, 운영요일, 운영시간, 휴무일, x_pos, y_pos, img_path from seoul_tourist;')
         for data in datas:
             name = data[0]
             address = data[1]
             working_day = data[2]
             working_time = data[3]
             holiday = data[4]
+            x_pos = data[-3]
+            y_pos = data[-2]
             image_path = data[-1]
-            layout.addWidget(SeoulForTour(name, address, working_day, working_time, holiday, image_path,self))
+            layout.addWidget(SeoulForTour(name, address, working_day, working_time, holiday, x_pos, y_pos, image_path,self))
     # 스크롤 에어리어 위젯비우기
     def clear_scroll_area(self):
         while self.scrollAreaWidgetContents.layout().count():
@@ -133,7 +142,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 self.gu_btn_list.append(button)
                 cnt += 1
 
-    ######################################
     #날씨관련
     def wheather_crawling(self):
         options = webdriver.ChromeOptions()
@@ -169,6 +177,61 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.conn = sqlite3.connect('../database/seoul_db.db')
         self.cur = self.conn.cursor()
 
+    def back_3_btn_click_event(self):
+        if not self.back_3_btn_clicked:
+            self.stackedWidget.setCurrentWidget(self.main_page_2)
+        else:
+            self.back_3_btn_clicked = False
+            self.stackedWidget.setCurrentWidget(self.main_page_1)
+    ######################################################################
+    # 로그인 페이지 작업
+    def input_personal_information(self):
+        self.check_name()
+        self.check_phone_number()
+
+        if self.check_name() and self.check_phone_number() :
+            self.stackedWidget.setCurrentWidget(self.main_page_1)
+            personal_info = (self.lineEdit, self.lineEdit_2, self.lineEdit_3)
+            # self.cur.execute("insert into {테이블이름넣으셈} values (?, ?, ?);",personal_info)
+            # self.conn.commit()
+        else:
+            print("썸띵이즈롱")
+
+    # 이름체크
+    def check_name(self):
+        name = self.lineEdit.text()
+        if len(name) > 6:
+            print("너는 이름이 왤케 기니?")
+            return False
+        else:
+            return True
+
+    # 연락처 체크
+    def check_phone_number(self):
+        number = self.lineEdit_2.text()
+        check_number = self.check_len_phone_number(number)
+
+    # 번호에 숫자이외의 썸띵이 들어가는지
+    def check_letter_in_number(self, number):
+        for num in number:
+            num = ord(num)
+            if 47 < num < 58:
+                pass
+            else :
+                print("숫자외는 입력을 못한단다")
+                return False
+        return True
+
+    # 폰 번호 길이체크
+    def check_len_phone_number(self, number):
+        if len(number) == 11:
+            if self.check_letter_in_number(number):
+                return True
+        else:
+            return False
+
+    ######################################################################
+
     # 기능 이니트
     def function_init(self):
         self.wheather_crawling() # 날씨 크롤링
@@ -176,18 +239,15 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
         # 라벨 클릭하면 오픈 페이지로 이동
+        # self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
         self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
         self.back_2_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
+        self.admit_btn.clicked.connect(self.input_personal_information)
         self.activate_DB()
 
-    def back_3_btn_click_event(self):
-        if not self.back_3_btn_clicked:
-            self.stackedWidget.setCurrentWidget(self.main_page_2)
-        else:
-            self.back_3_btn_clicked = False
-            self.stackedWidget.setCurrentWidget(self.main_page_1)
+
     def Ui_init(self):
         #스크롤에어리어 레이아웃 넣기
         v_layout = QVBoxLayout(self)
@@ -199,6 +259,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_2_btn.setIcon(QIcon('../img/back.png'))
         self.back_3_btn.setIcon(QIcon('../img/back.png'))
         self.back_4_btn.setIcon(QIcon('../img/back.png'))
+        # 웹엔진뷰
+        self.webview = QWebEngineView()
+        webview_layout = QVBoxLayout(self)
+        self.map_widget.setLayout(webview_layout)
 
     def var_init(self):
         self.back_3_btn_clicked = False # 관광버튼 눌렀는지 안눌렀느닞
