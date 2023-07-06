@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -246,6 +246,9 @@ border:1px solid black;
                   <height>66</height>
                  </size>
                 </property>
+                <property name="placeholderText">
+                 <string>뚜벅초</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -268,6 +271,9 @@ border:1px solid black;
                   <height>66</height>
                  </size>
                 </property>
+                <property name="placeholderText">
+                 <string>ex)01012345678</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -278,17 +284,25 @@ border:1px solid black;
                  </font>
                 </property>
                 <property name="text">
-                 <string>생년월일은</string>
+                 <string>생년월일은..</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_3">
+               <widget class="QDateEdit" name="dateEdit">
                 <property name="minimumSize">
                  <size>
                   <width>560</width>
                   <height>66</height>
                  </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-radius:15px;
+border:1px solid black;
+	font: 20pt;</string>
+                </property>
+                <property name="calendarPopup">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1259,7 +1273,7 @@ border-radius: 0px;
 }
 QScrollBar::handle:vertical {	
 	background-color:  rgb(255, 204, 0);
-	min-height: 30px;
+	min-height: 50px;
 	border-radius: 7px;
 }
 QScrollBar::handle:vertical:hover{	
@@ -1853,26 +1867,128 @@ border-radius: 60px;</string>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_28">
+                 <spacer name="horizontalSpacer_29">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
+                   <enum>QSizePolicy::Fixed</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>40</width>
+                    <width>30</width>
                     <height>20</height>
                    </size>
                   </property>
                  </spacer>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="check_btn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../img/magnifier.png</normaloff>../img/magnifier.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_27">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>30</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_30">
+                  <property name="minimumSize">
+                   <size>
+                    <width>522</width>
+                    <height>57</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_27">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="map_lineEdit">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>60</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>20</pointsize>
+                      </font>
+                     </property>
+                     <property name="placeholderText">
+                      <string>각 구별 핫스팟을 보여드려요!</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="frame_29">
+              <widget class="QFrame" name="whole_map_layout">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1885,173 +2001,125 @@ border-radius: 60px;</string>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_27">
-                <property name="spacing">
-                 <number>0</number>
+               <widget class="QWidget" name="verticalLayoutWidget">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>601</width>
+                  <height>771</height>
+                 </rect>
                 </property>
-                <property name="leftMargin">
-                 <number>0</number>
+                <layout class="QVBoxLayout" name="verticalLayout_17"/>
+               </widget>
+               <widget class="QFrame" name="frame_16">
+                <property name="geometry">
+                 <rect>
+                  <x>30</x>
+                  <y>30</y>
+                  <width>531</width>
+                  <height>65</height>
+                 </rect>
                 </property>
-                <property name="topMargin">
-                 <number>0</number>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
                 </property>
-                <property name="rightMargin">
-                 <number>0</number>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
                 </property>
-                <property name="bottomMargin">
-                 <number>0</number>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
                 </property>
-                <item>
-                 <widget class="QWidget" name="map_widget_4" native="true">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>754</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(231, 231, 231);</string>
-                  </property>
-                  <widget class="QLabel" name="label_5">
-                   <property name="geometry">
-                    <rect>
-                     <x>250</x>
-                     <y>690</y>
-                     <width>71</width>
-                     <height>21</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string>지도 나올곳</string>
-                   </property>
-                  </widget>
-                  <widget class="QFrame" name="frame_30">
-                   <property name="geometry">
-                    <rect>
-                     <x>30</x>
-                     <y>40</y>
-                     <width>533</width>
-                     <height>60</height>
-                    </rect>
-                   </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_13">
+                 <item>
+                  <widget class="QPushButton" name="map_food_btn">
                    <property name="minimumSize">
                     <size>
-                     <width>522</width>
-                     <height>57</height>
+                     <width>140</width>
+                     <height>45</height>
                     </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>140</width>
+                     <height>45</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                    </font>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);
-border-radius:15px;</string>
+border-radius:15px;
+border:1px solid black;</string>
                    </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                   <property name="text">
+                    <string>음식점</string>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_27">
-                    <property name="spacing">
-                     <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <spacer name="horizontalSpacer_27">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Fixed</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>30</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_8">
-                      <property name="minimumSize">
-                       <size>
-                        <width>40</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>40</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="pixmap">
-                       <pixmap>qt_img/magnifier.png</pixmap>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_29">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Fixed</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>30</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="map_lineEdit">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>60</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="placeholderText">
-                       <string>각 구별 핫스팟을 보여드려요!</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
                   </widget>
-                 </widget>
-                </item>
-               </layout>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="map_place_btn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>140</width>
+                     <height>45</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>140</width>
+                     <height>45</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:15px;
+border:1px solid black;</string>
+                   </property>
+                   <property name="text">
+                    <string>숙박업소</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="map_lodge_btn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>140</width>
+                     <height>45</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>140</width>
+                     <height>45</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:15px;
+border:1px solid black;</string>
+                   </property>
+                   <property name="text">
+                    <string>관광명소</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
              </item>
             </layout>
