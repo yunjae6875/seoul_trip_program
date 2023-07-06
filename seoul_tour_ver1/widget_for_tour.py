@@ -20,6 +20,8 @@ class SeoulForTour(QWidget, Ui_Form):
         self.location_lab.setText(f"주 소 : {self.address}")
         # self.img_label.setPixmap(QPixmap(f"{self.img_path}"))
 
+
+
     def mousePressEvent(self, event):
         self.seoul_main.stackedWidget.setCurrentWidget(self.seoul_main.main_page_4)
         self.seoul_main.name_lab.setText(f"이 름 : {self.name}")
