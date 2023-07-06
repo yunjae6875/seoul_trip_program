@@ -139,7 +139,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             x_pos = data[3]
             y_pos = data[4]
             image_path = data[-1]
-            layout.addWidget(SeoulForSleep(name, status, address, x_pos, y_pos, image_path,self))
+            layout.addWidget(SeoulForSleep(name, status, address, x_pos, y_pos, image_path, self))
 
     def set_data_of_tour_in_scrollarea(self):
         layout = self.scrollAreaWidgetContents.layout()
@@ -279,11 +279,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.tour_btn.clicked.connect(self.tour_btn_click)
 
         # 라벨 클릭하면 오픈 페이지로 이동
-        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
         self.back_2_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
-        self.admit_btn.clicked.connect(self.input_personal_information)
+        self.all_show_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_5))
+
+
+        #         # self.admit_btn.clicked.connect(self.input_personal_information)
         self.activate_DB()
 
         # 자동완성 기능 추가
