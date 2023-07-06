@@ -188,7 +188,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.check_phone_number()
         self.check_birthday()
 
-        if self.check_name() and self.check_birthday() and self.check_birthday():
+        if self.check_name() and self.check_birthday() :
             self.stackedWidget.setCurrentWidget(self.main_page_1)
             personal_info = (self.lineEdit, self.lineEdit_2, self.lineEdit_3)
             # self.cur.execute("insert into {테이블이름넣으셈} values (?, ?, ?);",personal_info)
@@ -229,14 +229,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         else:
             return False
 
-    # 생년월일 체크
-    def check_birthday(self):
-        birthday = self.lineEdit_3.text()
-        if len(birthday) == 8:
-            if self.check_letter_in_number(birthday):
-                return True
-        else:
-            return False
     ######################################################################
 
     # 기능 이니트
