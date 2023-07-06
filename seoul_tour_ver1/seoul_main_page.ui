@@ -45,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -2061,7 +2061,7 @@ border:1px solid black;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="map_place_btn">
+                  <widget class="QPushButton" name="map_lodge_btn">
                    <property name="minimumSize">
                     <size>
                      <width>140</width>
@@ -2090,7 +2090,7 @@ border:1px solid black;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="map_lodge_btn">
+                  <widget class="QPushButton" name="map_place_btn">
                    <property name="minimumSize">
                     <size>
                      <width>140</width>

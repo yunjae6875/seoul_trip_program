@@ -1,4 +1,8 @@
+import io
 import sqlite3
+import folium
+import sys
+import pandas as pd
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,6 +10,9 @@ from seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
+
+# 윤재 코드 병합중(main_copy로 이어서 진행)
+from map_file import *
 
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
            '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
@@ -15,13 +22,47 @@ gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대
 class WindowClass(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.map_obj = FoliumMap()
         self.setupUi(self)
         self.var_init()
         self.Ui_init()
         self.insert_values_in_gridlayout()
         self.function_init()
 
-        # self.widget.setLayout(grid)
+    def show_map_as_search(self, user_idx):
+        """검색한 값에 따라 자료들이 출력됨"""
+        if self.verticalLayout_17.count():
+            self.verticalLayout_17.takeAt(0)
+        print('여길 탑니다')
+        print('유저의 선택은', user_idx)
+        user_text = self.map_lineEdit.text()
+        print("유저가 선택한 동은", user_text)
+        if user_text == "": # 사용자가 검색을 하지 않은 경우
+            if user_idx == 0:
+                self.map_obj.mapping_food_all_show()
+            elif user_idx == 1:
+                self.map_obj.mapping_lodges_all_show()
+            else:
+                self.map_obj.mapping_tour_all_show()
+        else:
+            print('검색창에 친 경우')
+            if user_idx == 0:
+                self.map_obj.mapping_food_guname_show(user_text)
+            elif user_idx == 1:
+                self.map_obj.mapping_lodges_guname_show(user_text)
+            else:
+                self.map_obj.mapping_tour_guname_show(user_text)
+
+        # while self.verticalLayout_17.count():
+        #     child = self.verticalLayout_17.takeAt(0)
+        #     if child.widget():
+        #         child.widget().deleteLater()
+
+        self.verticalLayout_17.addWidget(self.map_obj.load_map())
+        del self.map_obj
+        self.map_obj = FoliumMap()
+        print("객체 지움")
+
 
     def what_do_you_want_to_know(self, choice):
         """
@@ -159,8 +200,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     # 디비디비
     def activate_DB(self):
-        self.conn = sqlite3.connect('../database/seoul_db.db')
-        self.cur = self.conn.cursor()
+        self.con = sqlite3.connect('../database/seoul_db.db')
+        self.cur = self.con.cursor()
 
     # 기능 이니트
     def function_init(self):
@@ -168,6 +209,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.food_btn.clicked.connect(lambda: self.what_do_you_want_to_know('food'))
         self.sleep_btn.clicked.connect(lambda: self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
+
         # 라벨 클릭하면 오픈 페이지로 이동
         self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
         self.back_2_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
@@ -175,11 +217,25 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_4_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_3))
         self.admit_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.all_show_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_5))
+
         self.activate_DB()
 
         # 자동완성 기능 추가
         completer = QCompleter(gu_list)
         self.map_lineEdit.setCompleter(completer)
+
+        # 지도버튼 시그널 연결
+        map_btn_list = [self.map_food_btn, self.map_lodge_btn, self.map_place_btn]
+        for idx, btn in enumerate(map_btn_list):
+            btn.clicked.connect(lambda x, y= idx: self.show_map_as_search(y))
+
+
+    # def show_whole_map(self):
+    #     """전체 지도를 보여줍니다"""
+    #     self.stackedWidget.setCurrentWidget(self.main_page_5)
+    #     print(self.verticalLayout_17)
+    #     self.map_obj.mapping_tour_all_show() # 모든 관광명소를 지도에 마커+클러스터로 표시함
+    #     self.verticalLayout_17.addWidget(self.map_obj.load_map())
 
 
     def back_3_btn_click_event(self):
@@ -213,4 +269,8 @@ if __name__ == '__main__':
 
     myWindow = WindowClass()
     myWindow.show()
-    app.exec_()
+    try:
+        sys.exit(app.exec_())
+    except SystemExit:
+        print('Closing Window...')
+    # app.exec_()
