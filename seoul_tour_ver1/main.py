@@ -28,6 +28,13 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.Ui_init()
         self.insert_values_in_gridlayout()
         self.function_init()
+        self.setStyleSheet(
+            "Ui_MainWindow {"
+            "   background-color: green;"  # Example background color
+            "   border-radius: 15px;"
+            "   border: 1px solid black;"  # Example border color and width
+            "}"
+        )
 
     def show_map_as_search(self, user_idx):
         """검색한 값에 따라 자료들이 출력됨"""
@@ -53,10 +60,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             else:
                 self.map_obj.mapping_tour_guname_show(user_text)
 
-        # while self.verticalLayout_17.count():
-        #     child = self.verticalLayout_17.takeAt(0)
-        #     if child.widget():
-        #         child.widget().deleteLater()
 
         self.verticalLayout_17.addWidget(self.map_obj.load_map())
         del self.map_obj
@@ -195,19 +198,27 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     # 날씨 셋업
     def set_wheather_icon(self, wheather):
-        wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloud', '../img/wheather_icon/overcast',
-                              '../img/wheather_icon/rainy']
-        idx = None
-        if wheather == '맑음':
-            idx = 0
-        elif wheather == '구름많음':
-            idx = 1
-        elif wheather == '흐림':
-            idx = 2
-        elif wheather == '비':
-            idx = 3
-
-        self.wheather_icon.setPixmap(QPixmap(wheather_icon_path[idx]))
+    #     wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloud', '../img/wheather_icon/overcast',
+    #                           '../img/wheather_icon/rainy']
+    #     idx = None
+    #     if wheather == '맑음':
+    #         idx = 0
+    #     elif wheather == '구름많음':
+    #         idx = 1
+    #     elif wheather == '흐림':
+    #         idx = 2
+    #     elif wheather == '비':
+    #         idx = 3
+    #
+    #     self.wheather_icon.setPixmap(QPixmap(wheather_icon_path[idx]))
+        wheather_icon_path = {
+            '맑음': '../img/wheather_icon/shiny',
+            '구름많음': '../img/wheather_icon/cloud',
+            '흐림': '../img/wheather_icon/overcast',
+            '비': '../img/wheather_icon/rainy'
+        }
+        idx = wheather_icon_path.get(wheather)
+        self.wheather_icon.setPixmap(QPixmap(idx))
 
     ######################################
 
@@ -316,15 +327,20 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     def Ui_init(self):
         # 스크롤에어리어 레이아웃 넣기
+        # self.setWindowFlags(
+        #     Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)  # 프레임 지우기 / 윈도우가 다른 창 위에 항상 최상위로 유지되도록 함
+        # self.setAttribute(Qt.WA_TranslucentBackground, True)  # 배경 투명하게 함
+
+
         v_layout = QVBoxLayout(self)
         self.scrollAreaWidgetContents.setLayout(v_layout)
         #########
         self.stackedWidget.setCurrentWidget(self.open_page)
 
-        self.label.setPixmap(QPixmap('../img/background.png'))
-        self.back_2_btn.setIcon(QIcon('../img/back.png'))
-        self.back_3_btn.setIcon(QIcon('../img/back.png'))
-        self.back_4_btn.setIcon(QIcon('../img/back.png'))
+        self.label.setPixmap(QPixmap('../img/qt_img/background.png'))
+        self.back_2_btn.setIcon(QIcon('../img/qt_img/back.png'))
+        self.back_3_btn.setIcon(QIcon('../img/qt_img/back.png'))
+        self.back_4_btn.setIcon(QIcon('../img/qt_img/back.png'))
         # 웹엔진뷰
         self.webview = QWebEngineView()
         webview_layout = QVBoxLayout(self)

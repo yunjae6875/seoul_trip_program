@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -45,7 +48,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -53,9 +56,12 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>601</width>
-          <height>851</height>
+          <width>600</width>
+          <height>850</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -464,7 +470,6 @@ border:1px solid black;
                </property>
                <property name="font">
                 <font>
-                 <family>Pretendard Light</family>
                  <pointsize>20</pointsize>
                 </font>
                </property>
@@ -489,7 +494,6 @@ border:1px solid black;
                </property>
                <property name="font">
                 <font>
-                 <family>Pretendard SemiBold</family>
                  <pointsize>28</pointsize>
                 </font>
                </property>
@@ -552,7 +556,6 @@ background-color: rgb(255, 255, 255);
                   </property>
                   <property name="font">
                    <font>
-                    <family>Pretendard Light</family>
                     <pointsize>16</pointsize>
                    </font>
                   </property>
@@ -572,16 +575,32 @@ border: 1px solid black;}
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_12">
                    <item>
+                    <spacer name="horizontalSpacer_14">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Fixed</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
                     <widget class="QLabel" name="wheather_icon">
                      <property name="minimumSize">
                       <size>
-                       <width>265</width>
+                       <width>150</width>
                        <height>135</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>265</width>
+                       <width>150</width>
                        <height>135</height>
                       </size>
                      </property>
@@ -653,8 +672,23 @@ border: 1px solid black;}
                        <height>150</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
                      <property name="text">
-                      <string>맛집</string>
+                      <string>  맛집</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../img/qt_img/room-service.png</normaloff>../img/qt_img/room-service.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>60</width>
+                       <height>60</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -679,8 +713,23 @@ border: 1px solid black;}
                        <height>150</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
                      <property name="text">
-                      <string>숙박</string>
+                      <string>  숙박</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../img/qt_img/bed.png</normaloff>../img/qt_img/bed.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>60</width>
+                       <height>60</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -705,8 +754,23 @@ border: 1px solid black;}
                        <height>150</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
                      <property name="text">
-                      <string>관광</string>
+                      <string>  관광</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../img/qt_img/car.png</normaloff>../img/qt_img/car.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>60</width>
+                       <height>60</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -727,11 +791,26 @@ border: 1px solid black;}
                     <height>150</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>전체 지도 보기</string>
+                   <string>  전체 지도 보기</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../img/qt_img/map.png</normaloff>../img/qt_img/map.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>60</width>
+                    <height>60</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -1478,7 +1557,7 @@ QScrollBar::sub-line:vertical {
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>img/back.png</normaloff>img/back.png</iconset>
+                    <normaloff>../img/back.png</normaloff>../img/back.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1841,8 +1920,30 @@ border-radius: 60px;</string>
                  <number>0</number>
                 </property>
                 <item>
+                 <spacer name="horizontalSpacer_31">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="back_5_btn">
                   <property name="minimumSize">
+                   <size>
+                    <width>60</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
                    <size>
                     <width>60</width>
                     <height>60</height>
@@ -1856,13 +1957,57 @@ border-radius: 60px;</string>
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>img/back.png</normaloff>img/back.png</iconset>
+                    <normaloff>../img/back.png</normaloff>../img/back.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
                     <width>60</width>
                     <height>60</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_30">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="map_lineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>520</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">border-radius:15px;
+border:1px solid black;</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>각 구별 핫스팟을 보여드려요!</string>
                   </property>
                  </widget>
                 </item>
@@ -1876,7 +2021,7 @@ border-radius: 60px;</string>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>30</width>
+                    <width>20</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1929,60 +2074,6 @@ border-radius: 60px;</string>
                    </size>
                   </property>
                  </spacer>
-                </item>
-                <item>
-                 <widget class="QFrame" name="frame_30">
-                  <property name="minimumSize">
-                   <size>
-                    <width>522</width>
-                    <height>57</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_27">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QLineEdit" name="map_lineEdit">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>60</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>20</pointsize>
-                      </font>
-                     </property>
-                     <property name="placeholderText">
-                      <string>각 구별 핫스팟을 보여드려요!</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
                 </item>
                </layout>
               </widget>
