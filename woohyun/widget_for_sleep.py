@@ -1,16 +1,19 @@
 import sys
+import folium
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from seoul_widget import *
 
 class SeoulForSleep(QWidget, Ui_Form):
-    def __init__(self, name, status, address, image_path,parent=None):
+    def __init__(self, name, status, address, x_pos, y_pos, image_path,parent=None):
         super().__init__(parent)
         self.setupUi(self)
 
         self.name = name
         self.status = status
         self.address = address
+        self.x_pos = x_pos
+        self.y_pos = y_pos
         self.image_path = image_path
         self.seoul_main = parent
 
@@ -25,9 +28,19 @@ class SeoulForSleep(QWidget, Ui_Form):
         self.seoul_main.type_lab.setText(f"상 태 : {self.status}")
         self.seoul_main.location_lab.setText(f"주 소 : {self.address}")
         self.seoul_main.img_label.setPixmap(QPixmap(f"{self.image_path}"))
+        self.create_map()
 
+    def create_map(self):
+        map = folium.Map(location=[self.x_pos, self.y_pos], zoom_start=25)
+        map.save('map.html')
+        self.loadPage()
 
-
+    def loadPage(self):
+        layout = self.seoul_main.map_widget.layout()
+        layout.addWidget(self.seoul_main.webview)
+        with open('map.html', 'r') as f:
+            html = f.read()
+            self.seoul_main.webview.setHtml(html)
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWindow = SeoulForSleep()
