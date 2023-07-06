@@ -7,7 +7,7 @@ from seoul_tour_ver1.seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
-
+from matplotlib_test import *
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
                         '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
                         '관악구', '서초구', '강남구', '송파구', '강동구']
@@ -56,6 +56,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.clear_scroll_area()
         self.set_data_of_food_in_scrollarea(datas)
         self.scrollArea.ensureVisible(0, 0)
+        #
+        # MyApp(self).show()
 
     def gu_btn_for_sleep(self, btn):
         region = btn.text()
@@ -186,9 +188,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     def input_personal_information(self):
         self.check_name()
         self.check_phone_number()
-        self.check_birthday()
 
-        if self.check_name() and self.check_birthday() :
+        if self.check_name() and self.check_phone_number() :
             self.stackedWidget.setCurrentWidget(self.main_page_1)
             personal_info = (self.lineEdit, self.lineEdit_2, self.lineEdit_3)
             # self.cur.execute("insert into {테이블이름넣으셈} values (?, ?, ?);",personal_info)
@@ -238,7 +239,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
         # 라벨 클릭하면 오픈 페이지로 이동
-        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
+        # self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
         self.back_2_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))

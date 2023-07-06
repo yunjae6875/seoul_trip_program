@@ -44,6 +44,7 @@ class SeoulForSleep(QWidget, Ui_Form):
         with open('map.html', 'r', encoding='UTF8') as f:
             html = f.read()
             self.seoul_main.webview.setHtml(html)
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWindow = SeoulForSleep()
