@@ -8,20 +8,20 @@ from widget_for_sleep import *
 from widget_for_tour import *
 
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
-                        '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
-                        '관악구', '서초구', '강남구', '송파구', '강동구']
+           '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구',
+           '관악구', '서초구', '강남구', '송파구', '강동구']
+
+
 class WindowClass(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super( ).__init__( )
+        super().__init__()
         self.setupUi(self)
         self.var_init()
         self.Ui_init()
         self.insert_values_in_gridlayout()
         self.function_init()
 
-
         # self.widget.setLayout(grid)
-
 
     def what_do_you_want_to_know(self, choice):
         """
@@ -31,19 +31,18 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.main_page_2)
         self.gu_btn_clicked(choice)
 
-
     # 구 버튼 클릭이벤트
     def gu_btn_clicked(self, choice):
         if choice == 'food':
             text = '가고싶은 서울의 장소를 선택하세요!\n인기있는 음식점들만 소개해 드립니다.'
             self.main_2_title_lab.setText(text)
             for idx, btn in enumerate(self.gu_btn_list):
-                btn.clicked.connect(lambda event, idx = idx : self.gu_btn_for_food(self.gu_btn_list[idx]))
+                btn.clicked.connect(lambda event, idx=idx: self.gu_btn_for_food(self.gu_btn_list[idx]))
         elif choice == 'sleep':
             text = '가고싶은 서울의 장소를 선택하세요!\n최고의 숙박시설을 소개해 드립니다.'
             self.main_2_title_lab.setText(text)
             for idx, btn in enumerate(self.gu_btn_list):
-                btn.clicked.connect(lambda event, idx = idx : self.gu_btn_for_sleep(self.gu_btn_list[idx]))
+                btn.clicked.connect(lambda event, idx=idx: self.gu_btn_for_sleep(self.gu_btn_list[idx]))
 
     # 구 버튼 클릭하면 무슨일이 일어날까
     def gu_btn_for_food(self, btn):
@@ -65,6 +64,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.main_page_3)
         self.clear_scroll_area()
         self.set_data_of_tour_in_scrollarea()
+
     # 스크롤 위젯에 데이터 심기
     def set_data_of_food_in_scrollarea(self, datas):
         layout = self.scrollAreaWidgetContents.layout()
@@ -95,6 +95,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             working_time = data[3]
             holiday = data[4]
             layout.addWidget(SeoulForTour(name, address, working_day, working_time, holiday, self))
+
     # 스크롤 에어리어 위젯비우기
     def clear_scroll_area(self):
         while self.scrollAreaWidgetContents.layout().count():
@@ -122,22 +123,25 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 cnt += 1
 
     ######################################
-    #날씨관련
+    # 날씨관련
     def wheather_crawling(self):
         options = webdriver.ChromeOptions()
         options.add_argument("headless")
         self.driver = webdriver.Chrome(options=options)
         self.driver.get("https://weather.naver.com/today/09140104?cpName=KMA")
 
-        temperature = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > div > strong')
-        wheather = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > p > span.weather')
+        temperature = self.driver.find_element(By.CSS_SELECTOR,
+                                               '#now > div > div.weather_area > div.weather_now > div > strong')
+        wheather = self.driver.find_element(By.CSS_SELECTOR,
+                                            '#now > div > div.weather_area > div.weather_now > p > span.weather')
         self.temp_label.setText(f"{temperature.text[-5:]} {wheather.text}")
         self.set_wheather_icon(wheather.text)
         self.driver.close()
 
     # 날씨 셋업
     def set_wheather_icon(self, wheather):
-        wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloudy', '../img/wheather_icon/overcast',
+        wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloudy',
+                              '../img/wheather_icon/overcast',
                               '../img/wheather_icon/rainy']
         idx = None
         if wheather == '맑음':
@@ -150,6 +154,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             idx = 3
 
         self.wheather_icon.setPixmap(QPixmap(wheather_icon_path[idx]))
+
     ######################################
 
     # 디비디비
@@ -160,16 +165,22 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # 기능 이니트
     def function_init(self):
         # self.wheather_crawling() # 날씨 크롤링
-        self.food_btn.clicked.connect(lambda :self.what_do_you_want_to_know('food'))
-        self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
+        self.food_btn.clicked.connect(lambda: self.what_do_you_want_to_know('food'))
+        self.sleep_btn.clicked.connect(lambda: self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
         # 라벨 클릭하면 오픈 페이지로 이동
         self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
-        self.back_2_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_1))
+        self.back_2_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
-        self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
+        self.back_4_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_3))
         self.admit_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
+        self.all_show_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_5))
         self.activate_DB()
+
+        # 자동완성 기능 추가
+        completer = QCompleter(gu_list)
+        self.map_lineEdit.setCompleter(completer)
+
 
     def back_3_btn_click_event(self):
         if not self.back_3_btn_clicked:
@@ -177,8 +188,9 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         else:
             self.back_3_btn_clicked = False
             self.stackedWidget.setCurrentWidget(self.main_page_1)
+
     def Ui_init(self):
-        #스크롤에어리어 레이아웃 넣기
+        # 스크롤에어리어 레이아웃 넣기
         v_layout = QVBoxLayout(self)
         self.scrollAreaWidgetContents.setLayout(v_layout)
         #########
@@ -190,7 +202,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_4_btn.setIcon(QIcon('../img/back.png'))
 
     def var_init(self):
-        self.back_3_btn_clicked = False # 관광버튼 눌렀는지 안눌렀느닞
+        self.back_3_btn_clicked = False  # 관광버튼 눌렀는지 안눌렀느닞
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -198,6 +211,6 @@ if __name__ == '__main__':
     fontDB.addApplicationFont('./font/Pretendard-Medium.ttf')
     app.setFont(QFont('Pretendard Medium'))
 
-    myWindow = WindowClass( )
-    myWindow.show( )
-    app.exec_( )
+    myWindow = WindowClass()
+    myWindow.show()
+    app.exec_()
