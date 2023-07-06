@@ -181,6 +181,63 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         else:
             self.back_3_btn_clicked = False
             self.stackedWidget.setCurrentWidget(self.main_page_1)
+    ######################################################################
+    # 로그인 페이지 작업
+    def input_personal_information(self):
+        self.check_name()
+        self.check_phone_number()
+        self.check_birthday()
+
+        if self.check_name() and self.check_birthday() and self.check_birthday():
+            self.stackedWidget.setCurrentWidget(self.main_page_1)
+            personal_info = (self.lineEdit, self.lineEdit_2, self.lineEdit_3)
+            # self.cur.execute("insert into {테이블이름넣으셈} values (?, ?, ?);",personal_info)
+            # self.conn.commit()
+        else:
+            print("썸띵이즈롱")
+
+    # 이름체크
+    def check_name(self):
+        name = self.lineEdit.text()
+        if len(name) > 6:
+            print("너는 이름이 왤케 기니?")
+            return False
+        else:
+            return True
+
+    # 연락처 체크
+    def check_phone_number(self):
+        number = self.lineEdit_2.text()
+        check_number = self.check_len_phone_number(number)
+
+    # 번호에 숫자이외의 썸띵이 들어가는지
+    def check_letter_in_number(self, number):
+        for num in number:
+            num = ord(num)
+            if 47 < num < 58:
+                pass
+            else :
+                print("숫자외는 입력을 못한단다")
+                return False
+        return True
+
+    # 폰 번호 길이체크
+    def check_len_phone_number(self, number):
+        if len(number) == 11:
+            if self.check_letter_in_number(number):
+                return True
+        else:
+            return False
+
+    # 생년월일 체크
+    def check_birthday(self):
+        birthday = self.lineEdit_3.text()
+        if len(birthday) == 8:
+            if self.check_letter_in_number(birthday):
+                return True
+        else:
+            return False
+    ######################################################################
 
     # 기능 이니트
     def function_init(self):
@@ -189,10 +246,11 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.sleep_btn.clicked.connect(lambda :self.what_do_you_want_to_know('sleep'))
         self.tour_btn.clicked.connect(self.tour_btn_click)
         # 라벨 클릭하면 오픈 페이지로 이동
-        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
         self.back_2_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
+        self.admit_btn.clicked.connect(self.input_personal_information)
         self.activate_DB()
 
 
