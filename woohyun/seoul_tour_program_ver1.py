@@ -149,12 +149,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     # 날씨 셋업
     def set_wheather_icon(self, wheather):
-        wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloudy', '../img/wheather_icon/overcast',
+        wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloud', '../img/wheather_icon/overcast',
                               '../img/wheather_icon/rainy']
         idx = None
         if wheather == '맑음':
             idx = 0
-        elif wheather == '구름 낀':
+        elif wheather == '구름많음':
             idx = 1
         elif wheather == '흐림':
             idx = 2
