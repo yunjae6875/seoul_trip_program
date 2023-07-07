@@ -16,19 +16,42 @@ class SeoulForSleep(QWidget, Ui_Form):
         self.y_pos = y_pos
         self.image_path = image_path
         self.seoul_main = parent
+        self.circular_img = self.circleImage(image_path)
+
 
         self.name_lab.setText(f"이 름 : {self.name}")
         self.type_lab.setText(f"상 태 : {self.status}")
         self.location_lab.setText(f"주 소 : {self.address}")
-        self.img_label.setPixmap(QPixmap(f"{self.image_path}"))
+        self.img_label.setPixmap(self.circular_img)
 
     def mousePressEvent(self, event):
         self.seoul_main.stackedWidget.setCurrentWidget(self.seoul_main.main_page_4)
         self.seoul_main.name_lab.setText(f"이 름 : {self.name}")
         self.seoul_main.type_lab.setText(f"상 태 : {self.status}")
         self.seoul_main.location_lab.setText(f"주 소 : {self.address}")
-        self.seoul_main.img_label.setPixmap(QPixmap(f"{self.image_path}"))
+        # self.seoul_main.img_label.setPixmap(QPixmap(f"{self.image_path}"))
+        self.seoul_main.img_label.setPixmap(self.circular_img)
         self.create_map()
+
+    def circleImage(self, imagePath):
+        source = QtGui.QPixmap(imagePath)
+        size = min(source.width(), source.height())
+
+        target = QtGui.QPixmap(size, size)
+        target.fill(QtCore.Qt.transparent)
+
+        qp = QtGui.QPainter(target)
+        qp.setRenderHints(qp.Antialiasing)
+        path = QtGui.QPainterPath()
+        path.addEllipse(0, 0, size, size)
+        qp.setClipPath(path)
+
+        sourceRect = QtCore.QRect(0, 0, size, size)
+        sourceRect.moveCenter(source.rect().center())
+        qp.drawPixmap(target.rect(), source, sourceRect)
+        qp.end()
+
+        return target
 
     def create_map(self):
         map = folium.Map(location=[self.x_pos, self.y_pos], zoom_start=17, scrollWheelZoom=False,
