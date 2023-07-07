@@ -805,7 +805,7 @@ class Ui_MainWindow(object):
         self.map_scrollArea.setWidgetResizable(True)
         self.map_scrollArea.setObjectName("map_scrollArea")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 98, 28))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 577, 707))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
@@ -828,6 +828,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_22.setObjectName("verticalLayout_22")
         self.label_2 = QtWidgets.QLabel(self.frame_23)
         self.label_2.setMinimumSize(QtCore.QSize(0, 500))
+        self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_22.addWidget(self.label_2)
         self.label_3 = QtWidgets.QLabel(self.frame_23)
@@ -838,7 +839,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(8)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

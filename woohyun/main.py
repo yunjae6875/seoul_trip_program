@@ -11,6 +11,7 @@ from seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
+from widget_for_graph import *
 
 # 윤재 코드 병합중(main_copy로 이어서 진행)
 from map_file import *
@@ -272,7 +273,18 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             self.user_number_label.setText('형식에 맞게 핸드폰 번호를 입력해주세요.')
             self.user_number_label.setStyleSheet('color:red;')
             return False
-
+    ####################################################################
+    # 그래프 관련 작업 코드
+    def set_graph_widget(self):
+        layout = self.frame_22.layout()
+        row = 0
+        column = 0
+        for name, img_path, desc in zip(self.graph_name_list, self.graph_imgpath_list, self.graph_desc_list):
+            layout.addWidget(SeoulforGraph(name, img_path, desc, self) ,row, column)
+            column += 1
+            if column == 2:
+                row += 1
+                column = 0
     ######################################################################
 
     # 기능 이니트
@@ -284,6 +296,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         # 라벨 클릭하면 오픈 페이지로 이동
         self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_6)
         self.back_2_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
@@ -303,7 +316,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         for idx, btn in enumerate(map_btn_list):
             btn.clicked.connect(lambda x, y= idx: self.show_map_as_search(y))
 
-
+        # 그래프 페이지 시그널 연결
+        self.set_graph_widget()
     # def show_whole_map(self):
     #     """전체 지도를 보여줍니다"""
     #     self.stackedWidget.setCurrentWidget(self.main_page_5)
@@ -346,16 +360,32 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         # 날씨 크롤링
         # self.wheather_crawling()
 
+        # 그래프 레이아웃 설정
+        graph_layout = QGridLayout(self)
+        self.frame_22.setLayout(graph_layout)
 
 
     def var_init(self):
         self.back_3_btn_clicked = False  # 관광버튼 눌렀는지 안눌렀는지
+        self.graph_imgpath_list = ['../img/graph_img/map_1', '../img/graph_img/map_2','../img/graph_img/map_3'
+            ,'../img/graph_img/map_4','../img/graph_img/map_5']
+        self.graph_name_list = ['월별_서울방문비교', '연령별_서울방문비교', '목적별_서울방문비교','국가별_서울방문비교',
+                                '자치구별 호텔 비율']
+        self.graph_desc_list = ['- 이 데이터는 2022년을 기준으로 수집되었습니다.'
+                                '- 월별(1~12월)로 어느 시점에 사람들이 서울을 여행지를 선택하여 방문했는지 시각화 했습니다.',
+                                '- 이 데이터는 2022년을 기준으로 수집되었습니다.'
+                                '- 연령대(15~20세/21~30세/31~40세/41~50세/51~60세)별로 서울을 여행지로 선택하여 방문했는지 시각화 했습니다.',
+                                '- 이 데이터는 2022년을 기준으로 수집되었습니다.'
+                                '- 서울을 방문하는 사람들이 어떤 목적을 가지고 방문 했는지 시각화 했습니다.',
+                                '- 이 데이터는 2022년을 기준으로 수집되었습니다.'
+                                '- 서울을 방문한 외국인들의 국적 비율을 시각화 했습니다.',
+                                '- 서울의 각 구별 호텔 비율을 설명합니다.']
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     fontDB = QFontDatabase()
-    fontDB.addApplicationFont('./font/Pretendard-Medium.ttf')
+    fontDB.addApplicationFont('../font/Pretendard-Medium.ttf')
     app.setFont(QFont('Pretendard Medium'))
 
     myWindow = WindowClass()
