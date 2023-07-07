@@ -355,7 +355,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     fontDB = QFontDatabase()
-    fontDB.addApplicationFont('./font/Pretendard-Medium.ttf')
+    fontDB.addApplicationFont('../font/Pretendard-Medium.ttf')
     app.setFont(QFont('Pretendard Medium'))
 
     myWindow = WindowClass()
