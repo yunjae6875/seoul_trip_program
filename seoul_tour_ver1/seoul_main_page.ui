@@ -1060,6 +1060,12 @@ border: 1px solid black;}
                  <height>570</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton::hover
+{
+background-color : rgb(255, 204, 0);
+}</string>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>

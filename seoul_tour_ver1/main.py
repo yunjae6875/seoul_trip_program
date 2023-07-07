@@ -1,4 +1,5 @@
 import io
+import random
 import sqlite3
 import folium
 import sys
@@ -28,13 +29,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.Ui_init()
         self.insert_values_in_gridlayout()
         self.function_init()
-        self.setStyleSheet(
-            "Ui_MainWindow {"
-            "   background-color: green;"  # Example background color
-            "   border-radius: 15px;"
-            "   border: 1px solid black;"  # Example border color and width
-            "}"
-        )
+
 
     def show_map_as_search(self, user_idx):
         """검색한 값에 따라 자료들이 출력됨"""
@@ -167,7 +162,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # hover 하면 색 변하게 하기 (수정필요)
     def insert_values_in_gridlayout(self):
         self.gu_btn_list = list()
-        # self.button_group = QButtonGroup()  # 버튼 그룹 생성
         cnt = 0
         for i in range(1, 6):
             for j in range(1, 6):
@@ -176,12 +170,13 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 button.setStyleSheet('''
                 border-radius:15px;
                 border: 1px solid black;
-                background-color: rgb(255, 255, 255);
                 ''')
                 # self.button_group.addButton(button)  # 버튼 그룹에 버튼 추가
                 self.gridLayout.addWidget(button, i, j)
                 self.gu_btn_list.append(button)
                 cnt += 1
+
+
 
     #날씨관련
     def wheather_crawling(self):
@@ -326,6 +321,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     #         self.stackedWidget.setCurrentWidget(self.main_page_1)
 
     def Ui_init(self):
+        """스타일시트 관련"""
         # 스크롤에어리어 레이아웃 넣기
         # self.setWindowFlags(
         #     Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)  # 프레임 지우기 / 윈도우가 다른 창 위에 항상 최상위로 유지되도록 함
@@ -336,7 +332,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.scrollAreaWidgetContents.setLayout(v_layout)
         #########
         self.stackedWidget.setCurrentWidget(self.open_page)
-
+        random_num = random.randint(1, 4)
+        print(random_num)
         self.label.setPixmap(QPixmap('../img/qt_img/background.png'))
         self.back_2_btn.setIcon(QIcon('../img/qt_img/back.png'))
         self.back_3_btn.setIcon(QIcon('../img/qt_img/back.png'))
@@ -345,6 +342,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.webview = QWebEngineView()
         webview_layout = QVBoxLayout(self)
         self.map_widget.setLayout(webview_layout)
+
+
 
     def var_init(self):
         self.back_3_btn_clicked = False  # 관광버튼 눌렀는지 안눌렀는지

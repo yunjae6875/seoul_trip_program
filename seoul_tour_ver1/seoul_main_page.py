@@ -344,6 +344,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.main_2_title_lab)
         self.frame_6 = QtWidgets.QFrame(self.frame_5)
         self.frame_6.setMinimumSize(QtCore.QSize(0, 570))
+        self.frame_6.setStyleSheet("QPushButton::hover\n"
+"{\n"
+"background-color : rgb(255, 204, 0);\n"
+"}")
         self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_6.setObjectName("frame_6")
@@ -712,7 +716,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
