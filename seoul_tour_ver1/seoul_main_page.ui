@@ -2140,7 +2140,7 @@ border-radius:20px;
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="map_lineEdit_2">
+                    <widget class="QLineEdit" name="map_lineEdit">
                      <property name="minimumSize">
                       <size>
                        <width>50</width>
