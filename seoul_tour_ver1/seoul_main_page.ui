@@ -48,7 +48,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>8</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="open_page">
        <widget class="QLabel" name="label">
@@ -64,7 +64,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>오픈화면</string>
+         <string/>
         </property>
         <property name="pixmap">
          <pixmap>img/background.png</pixmap>
@@ -1509,8 +1509,8 @@ QScrollBar::sub-line:vertical {
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>536</width>
-                        <height>566</height>
+                        <width>100</width>
+                        <height>30</height>
                        </rect>
                       </property>
                       <property name="maximumSize">
@@ -2092,7 +2092,7 @@ border-radius:20px;
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="back_5_btn_2">
+                    <widget class="QPushButton" name="back_5_btn">
                      <property name="minimumSize">
                       <size>
                        <width>60</width>
@@ -2421,8 +2421,8 @@ border:1px solid black;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>577</width>
-              <height>707</height>
+              <width>98</width>
+              <height>28</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_21">
