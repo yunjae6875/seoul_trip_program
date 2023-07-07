@@ -180,6 +180,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     #날씨관련
     def wheather_crawling(self):
+        """날씨를 크롤링해와서 메인 화면에 지정함"""
         options = webdriver.ChromeOptions()
         options.add_argument("headless")
         self.driver = webdriver.Chrome(options=options)
@@ -187,25 +188,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         temperature = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > div > strong')
         wheather = self.driver.find_element(By.CSS_SELECTOR, '#now > div > div.weather_area > div.weather_now > p > span.weather')
-        self.temp_label.setText(f"{temperature.text[-5:]} {wheather.text}")
+        self.temp_label.setText(f"{temperature.text[-5:]} ")
+        self.temp_label_2.setText(f'{wheather.text}')
         self.set_wheather_icon(wheather.text)
         self.driver.close()
 
     # 날씨 셋업
     def set_wheather_icon(self, wheather):
-    #     wheather_icon_path = ['../img/wheather_icon/shiny', '../img/wheather_icon/cloud', '../img/wheather_icon/overcast',
-    #                           '../img/wheather_icon/rainy']
-    #     idx = None
-    #     if wheather == '맑음':
-    #         idx = 0
-    #     elif wheather == '구름많음':
-    #         idx = 1
-    #     elif wheather == '흐림':
-    #         idx = 2
-    #     elif wheather == '비':
-    #         idx = 3
-    #
-    #     self.wheather_icon.setPixmap(QPixmap(wheather_icon_path[idx]))
+        """날씨 아이콘을 설정함"""
         wheather_icon_path = {
             '맑음': '../img/wheather_icon/shiny',
             '구름많음': '../img/wheather_icon/cloud',
@@ -214,8 +204,6 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         }
         idx = wheather_icon_path.get(wheather)
         self.wheather_icon.setPixmap(QPixmap(idx))
-
-    ######################################
 
     # 디비디비
     def activate_DB(self):
@@ -232,11 +220,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # 로그인 페이지 작업 -> 생년월일 창
     def input_personal_information(self):
         self.check_name()
-        self.check_phone_number()
-
-        if self.check_name() and self.check_phone_number() :
+        if self.check_name() and self.check_len_phone_number(self.lineEdit_2.text()) :
             self.stackedWidget.setCurrentWidget(self.main_page_1)
-            personal_info = (self.lineEdit, self.lineEdit_2, self.lineEdit_3)
+            self.main_sub_title.setText(f"{self.lineEdit.text()}님, \n서울 여행을 준비하세요.")
+            personal_info = (self.lineEdit, self.lineEdit_2, self.dateEdit)
             # self.cur.execute("insert into {테이블이름넣으셈} values (?, ?, ?);",personal_info)
             # self.conn.commit()
         else:
@@ -245,34 +232,45 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # 이름체크
     def check_name(self):
         name = self.lineEdit.text()
-        if len(name) > 6:
-            print("너는 이름이 왤케 기니?")
+        if len(name) == 0:
+            self.user_name_label.setText('이름을 입력해주세요.')
+            self.user_name_label.setStyleSheet('color:red;')
+            return False
+        elif len(name) > 6:
+            self.user_name_label.setText('이름이 너무 깁니다.')
+            self.user_name_label.setStyleSheet('color:red;')
             return False
         else:
+            self.user_name_label.setText(f'{name}님 안녕하세요.')
+            self.user_name_label.setStyleSheet('color:blue;')
+            print('트루탐')
             return True
 
     # 연락처 체크
-    def check_phone_number(self):
-        number = self.lineEdit_2.text()
-        check_number = self.check_len_phone_number(number)
-
     # 번호에 숫자이외의 썸띵이 들어가는지
     def check_letter_in_number(self, number):
+        # number = self.lineEdit_2.text()
+        # check_number = self.check_len_phone_number(number)
         for num in number:
             num = ord(num)
             if 47 < num < 58:
+                return True
                 pass
             else :
-                print("숫자외는 입력을 못한단다")
+                self.user_number_label('숫자만 입력하실 수 잇습니다.')
+                self.user_number_label.setStyleSheet('color:red;')
                 return False
         return True
 
     # 폰 번호 길이체크
     def check_len_phone_number(self, number):
+
         if len(number) == 11:
             if self.check_letter_in_number(number):
                 return True
         else:
+            self.user_number_label.setText('형식에 맞게 핸드폰 번호를 입력해주세요.')
+            self.user_number_label.setStyleSheet('color:red;')
             return False
 
     ######################################################################
@@ -285,14 +283,15 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.tour_btn.clicked.connect(self.tour_btn_click)
 
         # 라벨 클릭하면 오픈 페이지로 이동
-        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page_1)
+        self.label.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.login_page)
         self.back_2_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_3))
+        self.back_5_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_4))
         self.all_show_btn.clicked.connect(lambda x : self.stackedWidget.setCurrentWidget(self.main_page_5))
 
 
-        #         # self.admit_btn.clicked.connect(self.input_personal_information)
+        self.admit_btn.clicked.connect(self.input_personal_information)
         self.activate_DB()
 
         # 자동완성 기능 추가
@@ -323,25 +322,29 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     def Ui_init(self):
         """스타일시트 관련"""
         # 스크롤에어리어 레이아웃 넣기
-        # self.setWindowFlags(
-        #     Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)  # 프레임 지우기 / 윈도우가 다른 창 위에 항상 최상위로 유지되도록 함
-        # self.setAttribute(Qt.WA_TranslucentBackground, True)  # 배경 투명하게 함
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint )  # Qt.WindowType.WindowStaysOnTopHint 프레임 지우기 / 윈도우가 다른 창 위에 항상 최상위로 유지되도록 함
+        self.setAttribute(Qt.WA_TranslucentBackground, True)  # 배경 투명하게 함
 
 
         v_layout = QVBoxLayout(self)
         self.scrollAreaWidgetContents.setLayout(v_layout)
-        #########
+
+        # 오픈 페이지 랜덤 지정
         self.stackedWidget.setCurrentWidget(self.open_page)
         random_num = random.randint(1, 4)
-        print(random_num)
-        self.label.setPixmap(QPixmap('../img/qt_img/background.png'))
+
+        self.label.setPixmap(QPixmap(f'../img/qt_img/background_{random_num}.png'))
         self.back_2_btn.setIcon(QIcon('../img/qt_img/back.png'))
         self.back_3_btn.setIcon(QIcon('../img/qt_img/back.png'))
         self.back_4_btn.setIcon(QIcon('../img/qt_img/back.png'))
+        self.back_5_btn.setIcon(QIcon('../img/qt_img/back.png'))
         # 웹엔진뷰
         self.webview = QWebEngineView()
         webview_layout = QVBoxLayout(self)
         self.map_widget.setLayout(webview_layout)
+
+        # 날씨 크롤링
+        # self.wheather_crawling()
 
 
 
