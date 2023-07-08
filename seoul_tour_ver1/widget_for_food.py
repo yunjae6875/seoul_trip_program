@@ -55,7 +55,7 @@ class SeoulForFood(QWidget, Ui_Form):
         self.seoul_main.name_lab.setText(f"이 름 : {self.name}     평 점 : {self.rate}")
         self.seoul_main.type_lab.setText(f"메인 메뉴 : {self.main_dishes}     가 격 대 : {self.price}")
         self.seoul_main.location_lab.setText(f"주 소 : {self.address}")
-        self.seoul_main.img_label.setPixmap(QPixmap(f"{self.img_path}"))
+        self.seoul_main.img_label.setPixmap(self.circular_image)
         self.create_map()
 
     def create_map(self):
