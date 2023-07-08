@@ -205,14 +205,17 @@ class Ui_MainWindow(object):
         self.main_sub_title.setMinimumSize(QtCore.QSize(0, 96))
         self.main_sub_title.setMaximumSize(QtCore.QSize(16777215, 96))
         font = QtGui.QFont()
+        font.setFamily("Pretendard")
         font.setPointSize(28)
+        font.setBold(True)
+        font.setWeight(75)
         self.main_sub_title.setFont(font)
         self.main_sub_title.setObjectName("main_sub_title")
         self.verticalLayout_3.addWidget(self.main_sub_title)
         spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem7)
         self.frame_2 = QtWidgets.QFrame(self.frame_3)
-        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 545))
+        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 555))
         self.frame_2.setStyleSheet("QPushButton{\n"
 "border-radius: 15px;\n"
 "border: 1px solid white;\n"
@@ -233,6 +236,8 @@ class Ui_MainWindow(object):
         self.let_today_weather.setFont(font)
         self.let_today_weather.setObjectName("let_today_weather")
         self.verticalLayout_2.addWidget(self.let_today_weather)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem8)
         self.widget = QtWidgets.QWidget(self.frame_2)
         self.widget.setMinimumSize(QtCore.QSize(0, 150))
         self.widget.setMaximumSize(QtCore.QSize(16777215, 150))
@@ -296,8 +301,8 @@ class Ui_MainWindow(object):
         self.food_btn.setIconSize(QtCore.QSize(60, 60))
         self.food_btn.setObjectName("food_btn")
         self.horizontalLayout_4.addWidget(self.food_btn)
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem8)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem9)
         self.sleep_btn = QtWidgets.QPushButton(self.frame_17)
         self.sleep_btn.setMinimumSize(QtCore.QSize(170, 150))
         font = QtGui.QFont()
@@ -314,8 +319,8 @@ class Ui_MainWindow(object):
         self.sleep_btn.setIconSize(QtCore.QSize(60, 60))
         self.sleep_btn.setObjectName("sleep_btn")
         self.horizontalLayout_4.addWidget(self.sleep_btn)
-        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem9)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem10)
         self.tour_btn = QtWidgets.QPushButton(self.frame_17)
         self.tour_btn.setMinimumSize(QtCore.QSize(170, 150))
         font = QtGui.QFont()
@@ -351,8 +356,8 @@ class Ui_MainWindow(object):
         self.all_show_btn.setObjectName("all_show_btn")
         self.verticalLayout_2.addWidget(self.all_show_btn)
         self.verticalLayout_3.addWidget(self.frame_2)
-        spacerItem10 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem10)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem11)
         self.menu_btns_frame_1 = QtWidgets.QFrame(self.frame_3)
         self.menu_btns_frame_1.setMinimumSize(QtCore.QSize(0, 50))
         self.menu_btns_frame_1.setMaximumSize(QtCore.QSize(16777215, 50))
@@ -408,8 +413,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.menu_btns_frame_1)
         self.horizontalLayout.addWidget(self.frame_3)
         self.horizontalLayout_12.addLayout(self.horizontalLayout)
-        spacerItem11 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_12.addItem(spacerItem11)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_12.addItem(spacerItem12)
         self.horizontalLayout_2.addWidget(self.frame)
         self.stackedWidget.addWidget(self.main_page_1)
         self.main_page_2 = QtWidgets.QWidget()
@@ -432,8 +437,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setSpacing(0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        spacerItem12 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem12)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem13)
         self.frame_5 = QtWidgets.QFrame(self.frame_4)
         self.frame_5.setMinimumSize(QtCore.QSize(0, 220))
         self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -463,14 +468,28 @@ class Ui_MainWindow(object):
         self.back_2_btn.setIconSize(QtCore.QSize(60, 60))
         self.back_2_btn.setObjectName("back_2_btn")
         self.horizontalLayout_3.addWidget(self.back_2_btn)
-        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem13)
+        spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem14)
         self.verticalLayout_4.addWidget(self.frame_6)
-        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_4.addItem(spacerItem14)
+        self.frame_25 = QtWidgets.QFrame(self.frame_5)
+        self.frame_25.setMinimumSize(QtCore.QSize(0, 86))
+        self.frame_25.setMaximumSize(QtCore.QSize(16777215, 86))
+        self.frame_25.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_25.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_25.setObjectName("frame_25")
+        self.horizontalLayout_25 = QtWidgets.QHBoxLayout(self.frame_25)
+        self.horizontalLayout_25.setContentsMargins(30, 0, 30, 0)
+        self.horizontalLayout_25.setObjectName("horizontalLayout_25")
+        self.seoul_gif_label = QtWidgets.QLabel(self.frame_25)
+        self.seoul_gif_label.setMinimumSize(QtCore.QSize(0, 86))
+        self.seoul_gif_label.setMaximumSize(QtCore.QSize(16777215, 86))
+        self.seoul_gif_label.setStyleSheet("background-color: rgba(255, 255, 0, 0);")
+        self.seoul_gif_label.setObjectName("seoul_gif_label")
+        self.horizontalLayout_25.addWidget(self.seoul_gif_label)
+        self.verticalLayout_4.addWidget(self.frame_25)
         self.main_2_title_lab = QtWidgets.QLabel(self.frame_5)
-        self.main_2_title_lab.setMinimumSize(QtCore.QSize(0, 100))
-        self.main_2_title_lab.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.main_2_title_lab.setMinimumSize(QtCore.QSize(0, 80))
+        self.main_2_title_lab.setMaximumSize(QtCore.QSize(16777215, 80))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.main_2_title_lab.setFont(font)
@@ -478,7 +497,8 @@ class Ui_MainWindow(object):
         self.main_2_title_lab.setObjectName("main_2_title_lab")
         self.verticalLayout_4.addWidget(self.main_2_title_lab)
         self.frame_18 = QtWidgets.QFrame(self.frame_5)
-        self.frame_18.setMinimumSize(QtCore.QSize(0, 570))
+        self.frame_18.setMinimumSize(QtCore.QSize(0, 550))
+        self.frame_18.setMaximumSize(QtCore.QSize(16777215, 550))
         self.frame_18.setStyleSheet("QPushButton::hover\n"
 "{\n"
 "background-color : #FEFF86;\n"
@@ -656,13 +676,14 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 552, 554))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 552, 574))
         self.scrollAreaWidgetContents.setMaximumSize(QtCore.QSize(552, 16777215))
-        self.scrollAreaWidgetContents.setStyleSheet("border-radius:20px;")
+        self.scrollAreaWidgetContents.setStyleSheet("border-radius:20px;\n"
+"background-color: rgb(246, 241, 241);")
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_8.addWidget(self.scrollArea)
-        spacerItem19 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem19 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_8.addItem(spacerItem19)
         self.menu_btns_frame_3 = QtWidgets.QFrame(self.frame_24)
         self.menu_btns_frame_3.setMinimumSize(QtCore.QSize(556, 50))
@@ -1085,14 +1106,47 @@ class Ui_MainWindow(object):
         self.horizontalLayout_29.addItem(spacerItem32)
         self.verticalLayout_19.addWidget(self.frame_31)
         self.map_scrollArea = QtWidgets.QScrollArea(self.frame_21)
+        self.map_scrollArea.setStyleSheet("QScrollBar:vertical{\n"
+"border:none;\n"
+"background: white;\n"
+"width:14px;\n"
+"margin: 0 0 0 0;\n"
+"border-radius: 0px;\n"
+"}\n"
+"QScrollBar::handle:vertical {    \n"
+"    background-color:  #19A7CE;\n"
+"    min-height: 50px;\n"
+"    border-radius: 7px;\n"
+"}\n"
+"QScrollBar::handle:vertical:hover{    \n"
+"    \n"
+"    background-color:#146C94;\n"
+"}\n"
+"QScrollBar::handle:vertical:pressed {    \n"
+"    background-color: #146C94;\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"    border: none;\n"
+"    background-color: #146C94;\n"
+"    height: 15px;\n"
+"    border-radius:5px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"}\n"
+"QScrollArea { border-radius: 20px; }\n"
+"\n"
+"\n"
+"")
         self.map_scrollArea.setWidgetResizable(True)
         self.map_scrollArea.setObjectName("map_scrollArea")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 598, 718))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 600, 720))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.map_frame = QtWidgets.QFrame(self.scrollAreaWidgetContents_2)
+        self.map_frame.setStyleSheet("background-color: rgb(246, 241, 241);")
         self.map_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.map_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.map_frame.setObjectName("map_frame")
@@ -1217,7 +1271,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1236,7 +1290,7 @@ class Ui_MainWindow(object):
         self.main_page_title.setText(_translate("MainWindow", "서울 여행 추천기"))
         self.main_sub_title.setText(_translate("MainWindow", "000님, \n"
 "서울 여행을 준비하세요."))
-        self.let_today_weather.setText(_translate("MainWindow", "오늘의 서울 날씨는.."))
+        self.let_today_weather.setText(_translate("MainWindow", " 오늘의 서울 날씨는.."))
         self.wheather_icon.setText(_translate("MainWindow", "날씨 아이콘"))
         self.temp_label.setText(_translate("MainWindow", "온도"))
         self.temp_label_2.setText(_translate("MainWindow", "날씨 상태"))
@@ -1244,6 +1298,7 @@ class Ui_MainWindow(object):
         self.sleep_btn.setText(_translate("MainWindow", "  숙박"))
         self.tour_btn.setText(_translate("MainWindow", "  관광"))
         self.all_show_btn.setText(_translate("MainWindow", "  전체 지도 보기"))
+        self.seoul_gif_label.setText(_translate("MainWindow", "여기에 서울 움짤"))
         self.main_2_title_lab.setText(_translate("MainWindow", "가고싶은 서울의 장소를 선택하세요!\n"
 "인기있는 음식점들만 소개해 드립니다."))
         self.main_3_title_lab.setText(_translate("MainWindow", "00구의 유명한 음식점을 안내해드려요!"))

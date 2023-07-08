@@ -20,6 +20,8 @@ class Ui_Form(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.frame = QtWidgets.QFrame(Form)
+        self.frame.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-radius:20px;")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -31,6 +33,7 @@ class Ui_Form(object):
         self.map_lab.setObjectName("map_lab")
         self.verticalLayout.addWidget(self.map_lab)
         self.map_info = QtWidgets.QLabel(self.frame)
+        self.map_info.setAlignment(QtCore.Qt.AlignCenter)
         self.map_info.setObjectName("map_info")
         self.verticalLayout.addWidget(self.map_info)
         self.verticalLayout_2.addWidget(self.frame)

@@ -188,7 +188,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 button.setFixedSize(100, 100)  # 버튼의 크기 고정
                 button.setStyleSheet('''
                 border-radius:15px;
-                border: 1px solid black;
+                border: 3px solid white;
                 ''')
                 self.gridLayout.addWidget(button, i, j)
                 self.gu_btn_list.append(button)
@@ -305,6 +305,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 column = 0
     ######################################################################
 
+    def load_whole_map(self):
+        """지도 이미지 기본 로드"""
+        self.show_map_as_search(0)
+
     # 기능 이니트
     def function_init(self):
 
@@ -326,6 +330,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_btn_6.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
         self.back_btn_7.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_6))
         self.all_show_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_5))
+        self.all_show_btn.clicked.connect(self.load_whole_map)
+
         self.admit_btn.clicked.connect(self.input_personal_information)
 
         # db 활성화
@@ -361,6 +367,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             for btn in btn_list:
                 for object_name, widget in button_mapping.items():
                     if object_name in btn.objectName():
+                        # map_btn일 때 음식 지도 로드하기
                         btn.clicked.connect(lambda checked, widget=widget: self.stackedWidget.setCurrentWidget(widget))
                         break
 
@@ -401,6 +408,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         # 커서 지정
         self.setCursor(QCursor(QPixmap('../img/qt_img/mouse.png').scaled(80, 100)))
+        # self.label_1.setFont(QFont('Arial', 10))
+        # 폰트 지정
+        # self.main_sub_title.setFont(QFont('Pretendard', 28))
+
+        # Qmovie 설정
+        movie = QMovie('../img/qt_img/seoul.gif')
+        self.seoul_gif_label.setMovie(movie)
+        movie.start()
 
 
         # 웹엔진뷰
@@ -418,6 +433,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     def var_init(self):
         """관광버튼 눌렀는지 확인하기"""
         self.back_3_btn_clicked = False
+
+        # 그래프 이미지 넣어주기
         self.graph_imgpath_list = GraphData().imgpath_list
         self.graph_name_list = GraphData().graph_name_list
         self.graph_desc_list = GraphData().graph_desc_list

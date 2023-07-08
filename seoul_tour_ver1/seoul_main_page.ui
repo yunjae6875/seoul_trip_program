@@ -48,7 +48,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>8</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="open_page">
        <property name="styleSheet">
@@ -570,7 +570,10 @@ border-radius:20px;}
                   </property>
                   <property name="font">
                    <font>
+                    <family>Pretendard</family>
                     <pointsize>28</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="text">
@@ -597,7 +600,7 @@ border-radius:20px;}
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>545</height>
+                    <height>555</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -649,9 +652,22 @@ background-color: rgb(255, 255, 255);
                       </font>
                      </property>
                      <property name="text">
-                      <string>오늘의 서울 날씨는..</string>
+                      <string> 오늘의 서울 날씨는..</string>
                      </property>
                     </widget>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer_14">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                    <item>
                     <widget class="QWidget" name="widget" native="true">
@@ -1359,33 +1375,75 @@ border-radius:20px;}</string>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
+                 <widget class="QFrame" name="frame_25">
+                  <property name="minimumSize">
                    <size>
-                    <width>20</width>
-                    <height>40</height>
+                    <width>0</width>
+                    <height>86</height>
                    </size>
                   </property>
-                 </spacer>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>86</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_25">
+                   <property name="leftMargin">
+                    <number>30</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>30</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="seoul_gif_label">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>86</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>86</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgba(255, 255, 0, 0);</string>
+                     </property>
+                     <property name="text">
+                      <string>여기에 서울 움짤</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="main_2_title_lab">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>100</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>100</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="font">
@@ -1407,7 +1465,13 @@ border-radius:20px;}</string>
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>570</height>
+                    <height>550</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>550</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -1935,7 +1999,7 @@ QScrollArea { border-radius: 20px; }
                         <x>0</x>
                         <y>0</y>
                         <width>552</width>
-                        <height>554</height>
+                        <height>574</height>
                        </rect>
                       </property>
                       <property name="maximumSize">
@@ -1945,7 +2009,8 @@ QScrollArea { border-radius: 20px; }
                        </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">border-radius:20px;</string>
+                       <string notr="true">border-radius:20px;
+background-color: rgb(246, 241, 241);</string>
                       </property>
                      </widget>
                     </widget>
@@ -1961,7 +2026,7 @@ QScrollArea { border-radius: 20px; }
                      <property name="sizeHint" stdset="0">
                       <size>
                        <width>20</width>
-                       <height>40</height>
+                       <height>20</height>
                       </size>
                      </property>
                     </spacer>
@@ -3331,6 +3396,40 @@ border-radius:20px;
            </item>
            <item>
             <widget class="QScrollArea" name="map_scrollArea">
+             <property name="styleSheet">
+              <string notr="true">QScrollBar:vertical{
+border:none;
+background: white;
+width:14px;
+margin: 0 0 0 0;
+border-radius: 0px;
+}
+QScrollBar::handle:vertical {	
+	background-color:  #19A7CE;
+	min-height: 50px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	
+	background-color:#146C94;
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: #146C94;
+}
+
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: #146C94;
+	height: 15px;
+	border-radius:5px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollArea { border-radius: 20px; }
+
+
+</string>
+             </property>
              <property name="widgetResizable">
               <bool>true</bool>
              </property>
@@ -3339,13 +3438,16 @@ border-radius:20px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>598</width>
-                <height>718</height>
+                <width>600</width>
+                <height>720</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_21">
                <item>
                 <widget class="QFrame" name="map_frame">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(246, 241, 241);</string>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::StyledPanel</enum>
                  </property>
