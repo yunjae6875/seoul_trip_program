@@ -11,6 +11,10 @@ from seoul_main_page import *
 from widget_for_food import *
 from widget_for_sleep import *
 from widget_for_tour import *
+from widget_for_graph import *
+from graph_data import *
+
+# 윤재 코드 병합중(main_copy로 이어서 진행)
 from map_file import *
 
 gu_list = ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구',
@@ -287,7 +291,18 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             self.user_number_label.setText('형식에 맞게 핸드폰 번호를 입력해주세요.')
             self.user_number_label.setStyleSheet('color:red;')
             return False
-
+    ####################################################################
+    # 그래프 관련 작업 코드
+    def set_graph_widget(self):
+        layout = self.map_frame.layout()
+        row = 0
+        column = 0
+        for name, img_path, desc in zip(self.graph_name_list, self.graph_imgpath_list, self.graph_desc_list):
+            layout.addWidget(SeoulforGraph(name, img_path, desc, self) ,row, column)
+            column += 1
+            if column == 2:
+                row += 1
+                column = 0
     ######################################################################
 
     # 기능 이니트
@@ -308,6 +323,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_3_btn.clicked.connect(self.back_3_btn_click_event)
         self.back_4_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_3))
         self.back_5_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
+        self.back_btn_6.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_1))
+        self.back_btn_7.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_6))
         self.all_show_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.main_page_5))
         self.admit_btn.clicked.connect(self.input_personal_information)
 
@@ -323,9 +340,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         for idx, btn in enumerate(map_btn_list):
             btn.clicked.connect(lambda x, y=idx: self.show_map_as_search(y))
 
+            # 그래프 페이지 시그널 연결
+            self.set_graph_widget()
+
         # 하단 버튼 시그널 연결
         menu_btn_frame = [self.menu_btns_frame_1, self.menu_btns_frame_2, self.menu_btns_frame_3,
-                          self.menu_btns_frame_4]  # 메뉴 버튼 담긴 프레임
+                          self.menu_btns_frame_4, self.menu_btns_frame_5]  # 메뉴 버튼 담긴 프레임
         menu_btns = [frame.findChildren(QPushButton) for frame in menu_btn_frame]  # 해당 프레임에 있는 버튼들 가져오기
 
         # 버튼에 따라 이동해야 할 페이지
@@ -379,17 +399,28 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.back_4_btn.setIcon(QIcon('../img/qt_img/back.png'))
         self.back_5_btn.setIcon(QIcon('../img/qt_img/back.png'))
 
+        # 커서 지정
+        self.setCursor(QCursor(QPixmap('../img/qt_img/mouse.png').scaled(80, 100)))
+
 
         # 웹엔진뷰
         self.webview = QWebEngineView()
         webview_layout = QVBoxLayout(self)
         self.map_widget.setLayout(webview_layout)
 
+        # 그래프 레이아웃 설정
+        graph_layout = QGridLayout(self)
+        self.map_frame.setLayout(graph_layout)
+
+        #
         self.map_lineEdit.returnPressed.connect(self.show_map_as_search)
 
     def var_init(self):
         """관광버튼 눌렀는지 확인하기"""
         self.back_3_btn_clicked = False
+        self.graph_imgpath_list = GraphData().imgpath_list
+        self.graph_name_list = GraphData().graph_name_list
+        self.graph_desc_list = GraphData().graph_desc_list
 
 
 if __name__ == '__main__':
