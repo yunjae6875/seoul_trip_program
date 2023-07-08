@@ -31,8 +31,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     def show_map_as_search(self, user_idx):
         """검색한 값에 따라 자료들이 출력됨"""
         # 레이아웃에 있는 객체를 지움
-        if self.verticalLayout_17.count():
-            self.verticalLayout_17.takeAt(0)
+        if self.whole_map.count():
+            self.whole_map.takeAt(0)
 
         # 유저가 검색한 내용을 가져옴
         user_text = self.map_lineEdit.text()
@@ -57,7 +57,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 self.map_obj.mapping_tour_guname_show(user_text)
 
         # 레이아웃에 맵 객체를 리턴받아서 로드해 줌
-        self.verticalLayout_17.addWidget(self.map_obj.load_map())
+        self.whole_map.addWidget(self.map_obj.load_map())
         del self.map_obj  # map 클래스 객체를 지우고
         self.map_obj = FoliumMap()  # 다시 생성
         print("객체 지움")  # 확인용
@@ -347,7 +347,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     # def show_whole_map(self):
     #     """전체 지도를 보여줍니다"""
     #     self.stackedWidget.setCurrentWidget(self.main_page_5)
-    #     print(self.verticalLayout_17)
+    #     print(self.whole_map)
     #     self.map_obj.mapping_tour_all_show() # 모든 관광명소를 지도에 마커+클러스터로 표시함
     #     self.verticalLayout_17.addWidget(self.map_obj.load_map())
 
