@@ -15,8 +15,12 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(520, 148)
+        Form.setMinimumSize(QtCore.QSize(520, 0))
+        Form.setMaximumSize(QtCore.QSize(520, 16777215))
         Form.setStyleSheet("")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(Form)
+        self.horizontalLayout_2.setContentsMargins(9, 9, 9, 9)
+        self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
