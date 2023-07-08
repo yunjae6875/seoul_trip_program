@@ -290,7 +290,18 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             return False
 
     ######################################################################
-
+    # 그래프 관련 작업 코드
+    def set_graph_widget(self):
+        layout = self.frame_22.layout()
+        row = 0
+        column = 0
+        for name, img_path, desc in zip(self.graph_name_list, self.graph_imgpath_list, self.graph_desc_list):
+            layout.addWidget(SeoulforGraph(name, img_path, desc, self), row, column)
+            column += 1
+            if column == 2:
+                row += 1
+                column = 0
+    ######################################################################
     # 기능 이니트
     def function_init(self):
 
@@ -345,6 +356,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                         btn.clicked.connect(lambda checked, widget=widget: self.stackedWidget.setCurrentWidget(widget))
                         break
 
+        # 그래프 페이지 시그널 연결
+        self.set_graph_widget()
     # def show_whole_map(self):
     #     """전체 지도를 보여줍니다"""
     #     self.stackedWidget.setCurrentWidget(self.main_page_5)
@@ -359,19 +372,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
     #         self.back_3_btn_clicked = False
     #         self.stackedWidget.setCurrentWidget(self.main_page_1)
 
-    ####################################################################
-    # 그래프 관련 작업 코드
-    def set_graph_widget(self):
-        layout = self.frame_22.layout()
-        row = 0
-        column = 0
-        for name, img_path, desc in zip(self.graph_name_list, self.graph_imgpath_list, self.graph_desc_list):
-            layout.addWidget(SeoulforGraph(name, img_path, desc, self), row, column)
-            column += 1
-            if column == 2:
-                row += 1
-                column = 0
-    ######################################################################
+
     def Ui_init(self):
         """스타일시트 관련"""
         # 스크롤에어리어 레이아웃 넣기
@@ -400,6 +401,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.map_widget.setLayout(webview_layout)
 
         self.map_lineEdit.returnPressed.connect(self.show_map_as_search)
+
+        # 그래프 레이아웃 설정
+        graph_layout = QGridLayout(self)
+        self.frame_22.setLayout(graph_layout)
 
     def var_init(self):
         """관광버튼 눌렀는지 확인하기"""
